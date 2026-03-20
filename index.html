@@ -21,8 +21,10 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 #sc::-webkit-scrollbar{display:none;}
 .ch{scroll-snap-align:start;scroll-snap-stop:always;height:100vh;min-height:100vh;
     position:relative;overflow:hidden;display:flex;align-items:center;}
-.cf{scroll-snap-align:start;scroll-snap-stop:always;min-height:100vh;height:auto;
-    position:relative;overflow:hidden;display:flex;align-items:center;padding:56px 0;}
+.cf{scroll-snap-align:start;scroll-snap-stop:always;height:100vh;
+    position:relative;overflow-y:auto;overflow-x:hidden;display:flex;align-items:center;padding:56px 0;
+    scrollbar-width:none;}
+.cf::-webkit-scrollbar{display:none;}
 
 /* DOTS */
 #dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);
@@ -101,12 +103,13 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 .h-dancer::before{content:'';position:absolute;left:0;top:0;bottom:0;width:10%;z-index:2;
   background:linear-gradient(to right,#cfc8f2,transparent);}
 
-/* NUMBERS: ONLY right side (right:XX%), high opacity, overlay */
+/* NUMBERS: left gradient zone, visible, no blend tricks */
 .fn{position:absolute;font-family:'Playfair Display',serif;font-weight:700;
     pointer-events:none;user-select:none;
-    z-index:15;   /* above dancer z:1 */
+    z-index:15;
     line-height:1;
-    mix-blend-mode:overlay;}
+    mix-blend-mode:normal;
+    text-shadow:0 2px 20px rgba(0,0,0,.15);}
 @keyframes fA{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-20px) rotate(4deg);}}
 @keyframes fB{0%,100%{transform:translateY(0);}50%{transform:translateY(-24px);}}
 @keyframes fC{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-18px) scale(1.06);}}
@@ -366,7 +369,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 <div id="sc">
 
 <!-- ════════════ §1 HERO ════════════ -->
-<section class="ch vis" id="s1">
+<section class="ch" id="s1">
 
   <!-- Organic watercolor blobs LEFT only -->
   <div class="blob" style="top:-55px;left:-65px;width:330px;height:310px;opacity:.48;">
@@ -391,14 +394,14 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
   </div>
 
   <!-- NUMBERS: ALL right side only (right:XX%), overlay blend, high opacity -->
-  <span class="fn" style="top:12%;right:48%;font-size:7rem;color:#3BBFBF;opacity:.55;animation:fA 6.5s ease-in-out infinite;">7</span>
-  <span class="fn" style="top:17%;right:27%;font-size:5.5rem;color:#A855C8;opacity:.5;animation:fB 8s ease-in-out infinite .5s;">22</span>
-  <span class="fn" style="top:46%;right:36%;font-size:7rem;color:#7B6FB5;opacity:.45;animation:fC 7s ease-in-out infinite 1s;">3</span>
-  <span class="fn" style="top:63%;right:19%;font-size:5.5rem;color:#3BBFBF;opacity:.5;animation:fD 9s ease-in-out infinite .3s;">9</span>
-  <span class="fn" style="top:29%;right:12%;font-size:4.5rem;color:#C9A8D4;opacity:.48;animation:fE 7.5s ease-in-out infinite 1.5s;">11</span>
-  <span class="fn" style="top:72%;right:44%;font-size:3.5rem;color:#A855C8;opacity:.42;animation:fA 5.5s ease-in-out infinite 2s;">2</span>
-  <span class="fn" style="top:52%;right:6%;font-size:3.2rem;color:#7B6FB5;opacity:.38;animation:fB 8.5s ease-in-out infinite .8s;">8</span>
-  <span class="fn" style="top:7%;right:17%;font-size:4rem;color:#3BBFBF;opacity:.42;animation:fC 6s ease-in-out infinite 2.5s;">13</span>
+  <span class="fn" style="top:10%;left:5%;font-size:7rem;color:#1a7070;opacity:.7;animation:fA 6.5s ease-in-out infinite;">7</span>
+  <span class="fn" style="top:15%;left:24%;font-size:5.5rem;color:#6030a0;opacity:.65;animation:fB 8s ease-in-out infinite .5s;">22</span>
+  <span class="fn" style="top:44%;left:8%;font-size:7rem;color:#4a3a90;opacity:.6;animation:fC 7s ease-in-out infinite 1s;">3</span>
+  <span class="fn" style="top:62%;left:30%;font-size:5.5rem;color:#1a7070;opacity:.65;animation:fD 9s ease-in-out infinite .3s;">9</span>
+  <span class="fn" style="top:28%;left:38%;font-size:4.5rem;color:#7040a8;opacity:.6;animation:fE 7.5s ease-in-out infinite 1.5s;">11</span>
+  <span class="fn" style="top:74%;left:18%;font-size:3.5rem;color:#6030a0;opacity:.6;animation:fA 5.5s ease-in-out infinite 2s;">2</span>
+  <span class="fn" style="top:50%;left:44%;font-size:3.2rem;color:#4a3a90;opacity:.55;animation:fB 8.5s ease-in-out infinite .8s;">8</span>
+  <span class="fn" style="top:5%;left:42%;font-size:4rem;color:#1a7070;opacity:.6;animation:fC 6s ease-in-out infinite 2.5s;">13</span>
 
   <!-- dancer -->
   <div class="h-dancer"><img id="img-dancer" src="" alt=""/></div>
@@ -672,6 +675,15 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 
 /* ── SCROLL SNAP OBSERVER ── */
 const sc = document.getElementById('sc');
+// Activar hero al cargar con pequeño delay para que se vea la animación
+setTimeout(() => {
+  const hero = document.getElementById('s1');
+  if (hero) {
+    hero.classList.add('vis');
+    document.querySelector('[data-id="s1"]')?.classList.add('on');
+  }
+}, 80);
+
 document.querySelectorAll('.ch, .cf').forEach(c => {
   new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -682,7 +694,7 @@ document.querySelectorAll('.ch, .cf').forEach(c => {
         );
       }
     });
-  }, { root: sc, threshold: 0.5 }).observe(c);
+  }, { root: sc, threshold: 0.15, rootMargin: '0px' }).observe(c);
 });
 
 function go(id) {
