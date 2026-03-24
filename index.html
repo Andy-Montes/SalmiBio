@@ -16,12 +16,12 @@ html{scroll-behavior:smooth;}
 body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overflow:hidden;}
 
 /* SCROLL SNAP */
-#sc{position:fixed;inset:0;overflow-y:scroll;scroll-snap-type:y mandatory;
+#sc{position:fixed;inset:0;top:70px;overflow-y:scroll;scroll-snap-type:y mandatory;
     scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 #sc::-webkit-scrollbar{display:none;}
-.ch{scroll-snap-align:start;scroll-snap-stop:always;height:100vh;min-height:100vh;
+.ch{scroll-snap-align:start;scroll-snap-stop:always;height:calc(100vh - 70px);min-height:calc(100vh - 70px);
     position:relative;overflow:hidden;display:flex;align-items:center;}
-.cf{scroll-snap-align:start;scroll-snap-stop:always;height:100vh;
+.cf{scroll-snap-align:start;scroll-snap-stop:always;height:calc(100vh - 70px);
     position:relative;overflow-y:auto;overflow-x:hidden;display:flex;align-items:center;padding:56px 0;
     scrollbar-width:none;}
 .cf::-webkit-scrollbar{display:none;}
@@ -76,14 +76,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
     #8ecece 0%,#b5a8e2 44%,#cfc8f2 49%,
     #ffffff 49%,#ffffff 100%);}
 
-/* ESCUELA LOGO: centered, large (144px), transparent bg */
-.hero-logo-wrap{
-  position:absolute;top:20px;
-  left:0;right:0;
-  display:flex;justify-content:center;align-items:center;
-  z-index:20;pointer-events:none;
-  background:transparent;
-}
+.hero-logo-wrap{display:none;}
 /* mix-blend-mode:multiply on WHITE or LIGHT bg = black pixels become transparent */
 .hero-logo{
   height:144px;
@@ -226,7 +219,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
   background:linear-gradient(to right,transparent 42%,rgba(234,246,246,1) 86%),
              linear-gradient(to bottom,rgba(234,246,246,.4) 0%,transparent 12%,transparent 82%,rgba(237,229,248,1) 100%);}
 
-.y-col{position:relative;z-index:2;max-width:500px;margin-left:auto;}
+.y-col{position:relative;z-index:2;max-width:500px;}
 .y-tag{color:var(--tqD);}
 .y-h{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);
      font-weight:700;color:var(--ink);line-height:1.05;margin-bottom:14px;}
@@ -249,7 +242,9 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 #s5::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
             background:linear-gradient(to right,var(--tq),var(--lilaD));}
 .s5-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
-.price-big{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5vw,3.8rem);
+.s5-grid>*:nth-child(1){order:2;}
+.s5-grid>*:nth-child(2){order:1;}
+.price-big{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,2.8vw,2.3rem);
            font-weight:700;color:var(--tq);line-height:1;}
 .price-usd{font-size:.9rem;font-weight:300;color:var(--mt);margin-left:6px;}
 .price-note{font-size:.76rem;color:var(--lilaB);margin-top:4px;margin-bottom:16px;}
@@ -340,19 +335,62 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
   .y-photo img{left:0;width:220px;height:280px;}
 }
 @media(max-width:700px){
-  body{overflow:auto;}
+  body{overflow:auto;padding-top:70px;}
   #sc{position:static;overflow:visible;scroll-snap-type:none;}
   .ch,.cf{scroll-snap-align:none;height:auto;min-height:auto;padding:48px 0;}
-  #dots,.h-dancer,.s2-art{display:none;}
+  #dots{display:none;}
+  .h-dancer{width:100%;opacity:0.28;}
+  .s2-art{display:block;}
   .lg,.mod-grid{grid-template-columns:1fr;}
   .mod-card:nth-child(5){grid-column:1;}
   .wrap{padding:0 20px;}
   .footer-bar{flex-direction:column;text-align:center;}
   #s1{background:linear-gradient(148deg,#8ecece 0%,#b0a0dc 100%);}
   .hero-logo{height:80px;}
-  .y-photo{display:none;}
-  .y-col{margin:0;}
+  .y4-wrap{flex-direction:column;gap:20px;align-items:flex-start;}
+  .y4-photo img{width:180px;height:220px;}
+  .y-col{margin:0;max-width:100%;}
 }
+
+/* ══ FIXED SITE HEADER ══ */
+#site-header{
+  position:fixed;top:0;left:0;right:0;height:70px;z-index:600;
+  background:#fff;box-shadow:0 2px 18px rgba(59,191,191,.14);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 52px;
+}
+.site-logo{height:52px;width:auto;object-fit:contain;mix-blend-mode:multiply;display:block;flex-shrink:0;}
+.site-nav{display:flex;align-items:center;gap:24px;}
+.site-nav a{
+  font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;cursor:pointer;transition:color .2s;
+  background:none;border:none;font-family:'Montserrat',sans-serif;padding:0;
+}
+.site-nav a:hover{color:var(--tq);}
+.nav-cta{
+  background:linear-gradient(135deg,var(--tq),var(--lilaB))!important;
+  color:#fff!important;padding:9px 20px!important;border-radius:100px!important;
+  box-shadow:0 4px 14px rgba(59,191,191,.3);
+}
+.nav-cta:hover{opacity:.88;}
+
+/* §4 YERTHY — inline flex layout */
+.y4-wrap{display:flex;align-items:center;gap:52px;}
+.y4-photo{flex-shrink:0;}
+.y4-photo img{
+  width:300px;height:360px;object-fit:cover;object-position:top center;
+  border-radius:16px;display:block;
+  box-shadow:0 20px 50px rgba(59,191,191,.18),0 6px 16px rgba(0,0,0,.08);
+}
+@media(max-width:860px){
+  .y4-photo img{width:220px;height:280px;}
+  .y4-wrap{gap:28px;}
+}
+@media(max-width:700px){
+  #site-header{padding:0 20px;}
+  .site-nav{display:none;}
+}
+
 </style>
 </head>
 <body>
@@ -364,6 +402,17 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
   <button class="dot" data-id="s4" onclick="go('s4')"></button>
   <button class="dot" data-id="s5" onclick="go('s5')"></button>
 </nav>
+
+<header id="site-header">
+  <img class="site-logo" src="images/escuela.png" alt="Escuela Bio-Transgeneracional"/>
+  <nav class="site-nav">
+    <a onclick="go('s1')">Inicio</a>
+    <a onclick="go('s2')">El Curso</a>
+    <a onclick="go('s3')">Módulos</a>
+    <a onclick="go('s4')">Instructora</a>
+    <a class="nav-cta" onclick="go('s5')">Inscripción</a>
+  </nav>
+</header>
 
 <div id="sc">
 
@@ -386,11 +435,6 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 
   <!-- big 22 bg -->
   <div class="h-wm">22</div>
-
-  <!-- LOGO ESCUELA: 144px, centered top, multiply = transparent bg -->
-  <div class="hero-logo-wrap">
-    <img class="hero-logo" id="img-escuela-h" src="" alt="Escuela Bio-Transgeneracional"/>
-  </div>
 
   <!-- NUMBERS: ALL right side only (right:XX%), overlay blend, high opacity -->
   <span class="fn" style="top:8%;right:40%;font-size:7rem;color:#3BBFBF;opacity:.75;animation:fA 6.5s ease-in-out infinite;">7</span>
@@ -534,8 +578,8 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 
 <!-- ════════════ §4 YERTHY ════════════ -->
 <section class="ch" id="s4">
-  <div class="y-photo"><img id="img-yerthy" src="" alt="Yerthy Montes"/></div>
-  <div class="wrap">
+  <div class="wrap y4-wrap">
+    <div class="y4-photo"><img id="img-yerthy" src="" alt="Yerthy Montes"/></div>
     <div class="y-col">
       <span class="tag y-tag r">Tu instructora</span>
       <h2 class="y-h r d1">Yerthy <span class="tq">Montes</span></h2>
