@@ -16,12 +16,11 @@ html{scroll-behavior:smooth;}
 body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overflow:hidden;}
 
 /* SCROLL SNAP */
-#sc{position:fixed;inset:0;top:70px;overflow-y:scroll;scroll-snap-type:y mandatory;
-    scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+#sc{position:fixed;inset:0;top:70px;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 #sc::-webkit-scrollbar{display:none;}
-.ch{scroll-snap-align:start;scroll-snap-stop:always;height:calc(100vh - 70px);min-height:calc(100vh - 70px);
+.ch{scroll-snap-align:start;scroll-snap-stop:normal;height:calc(100vh - 70px);min-height:calc(100vh - 70px);
     position:relative;overflow:hidden;display:flex;align-items:center;}
-.cf{scroll-snap-align:start;scroll-snap-stop:always;height:calc(100vh - 70px);
+.cf{scroll-snap-align:start;scroll-snap-stop:normal;height:calc(100vh - 70px);
     position:relative;overflow-y:auto;overflow-x:hidden;display:flex;align-items:center;padding:56px 0;
     scrollbar-width:none;}
 .cf::-webkit-scrollbar{display:none;}
@@ -35,7 +34,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 .dot.on{background:var(--tq);opacity:1;transform:scale(1.35);box-shadow:0 0 0 3px rgba(59,191,191,.2);}
 
 /* REVEAL */
-.r{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
+.r{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease;}
 .r.d1{transition-delay:.08s;}.r.d2{transition-delay:.17s;}.r.d3{transition-delay:.26s;}
 .r.d4{transition-delay:.35s;}.r.d5{transition-delay:.44s;}.r.d6{transition-delay:.53s;}
 .ch.vis .r,.cf.vis .r{opacity:1;transform:none;}
@@ -102,11 +101,11 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
     z-index:15;
     line-height:1;
     mix-blend-mode:multiply;}
-@keyframes fA{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
-@keyframes fB{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
-@keyframes fC{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-@keyframes fD{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
-@keyframes fE{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+@keyframes fA{0%{transform:translate(0,-22px);}25%{transform:translate(26px,0);}50%{transform:translate(0,22px);}75%{transform:translate(-26px,0);}100%{transform:translate(0,-22px);}}
+@keyframes fB{0%{transform:translate(0,18px);}25%{transform:translate(-22px,0);}50%{transform:translate(0,-18px);}75%{transform:translate(22px,0);}100%{transform:translate(0,18px);}}
+@keyframes fC{0%{transform:translate(-24px,0);}25%{transform:translate(0,-18px);}50%{transform:translate(24px,0);}75%{transform:translate(0,18px);}100%{transform:translate(-24px,0);}}
+@keyframes fD{0%{transform:translate(0,20px);}33%{transform:translate(20px,-12px);}66%{transform:translate(-20px,-12px);}100%{transform:translate(0,20px);}}
+@keyframes fE{0%{transform:translate(18px,-18px);}25%{transform:translate(18px,18px);}50%{transform:translate(-18px,18px);}75%{transform:translate(-18px,-18px);}100%{transform:translate(18px,-18px);}}
 
 .h-wm{position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:0;
       font-family:'Playfair Display',serif;font-weight:700;
@@ -285,6 +284,13 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 .fc-d{font-size:.83rem;font-weight:600;color:var(--ink);text-align:right;}
 .fc-h{font-size:.68rem;color:var(--mt);text-align:right;margin-top:1px;}
 .incl{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px;}
+.cal-link{
+  display:inline-flex;align-items:center;gap:4px;margin-left:8px;flex-shrink:0;
+  color:var(--tq);text-decoration:none;font-size:.62rem;font-weight:600;
+  letter-spacing:.5px;opacity:.55;transition:opacity .2s;
+}
+.cal-link:hover{opacity:1;}
+.cal-link svg{flex-shrink:0;}
 .incl span{background:linear-gradient(135deg,rgba(59,191,191,.1),rgba(168,85,200,.08));
            color:var(--tqD);font-size:.64rem;font-weight:700;letter-spacing:2px;
            text-transform:uppercase;padding:7px 16px;border-radius:100px;
@@ -359,7 +365,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
   display:flex;align-items:center;justify-content:space-between;
   padding:0 52px;
 }
-.site-logo{height:52px;width:auto;object-fit:contain;mix-blend-mode:multiply;display:block;flex-shrink:0;}
+.site-logo{height:62px;width:auto;object-fit:contain;mix-blend-mode:multiply;display:block;flex-shrink:0;}
 .site-nav{display:flex;align-items:center;gap:24px;}
 .site-nav a{
   font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
@@ -664,11 +670,11 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
           Miércoles · 20:00–22:30 hrs Chile · Zoom en vivo
         </p>
         <div class="dates-col">
-          <div class="fc"><span class="fc-n">Clase 1</span><div><div class="fc-d">Miércoles 22 de abril</div><div class="fc-h">20:00 a 22:30 hrs</div></div></div>
-          <div class="fc"><span class="fc-n">Clase 2</span><div><div class="fc-d">Miércoles 29 de abril</div><div class="fc-h">20:00 a 22:30 hrs</div></div></div>
-          <div class="fc"><span class="fc-n">Clase 3</span><div><div class="fc-d">Miércoles 6 de mayo</div><div class="fc-h">20:00 a 22:30 hrs</div></div></div>
-          <div class="fc"><span class="fc-n">Clase 4</span><div><div class="fc-d">Miércoles 13 de mayo</div><div class="fc-h">20:00 a 22:30 hrs</div></div></div>
-          <div class="fc"><span class="fc-n">Clase 5</span><div><div class="fc-d">Miércoles 20 de mayo</div><div class="fc-h">20:00 a 22:30 hrs</div></div></div>
+          <div class="fc"><span class="fc-n">Clase 1</span><div><div class="fc-d">Miércoles 22 de abril</div><div class="fc-h">20:00 a 22:30 hrs</div></div><a class="cal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&ctz=America/Santiago&details=Curso+Bionumerolog%C3%ADa+Base+22+con+Yerthy+Montes.+Zoom+en+vivo.&location=Zoom&text=Clase+1+Bionumerolog%C3%ADa+Base+22&dates=20260422T200000/20260422T223000" target="_blank" title="Agregar al calendario"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></a></div>
+          <div class="fc"><span class="fc-n">Clase 2</span><div><div class="fc-d">Miércoles 29 de abril</div><div class="fc-h">20:00 a 22:30 hrs</div></div><a class="cal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&ctz=America/Santiago&details=Curso+Bionumerolog%C3%ADa+Base+22+con+Yerthy+Montes.+Zoom+en+vivo.&location=Zoom&text=Clase+2+Bionumerolog%C3%ADa+Base+22&dates=20260429T200000/20260429T223000" target="_blank" title="Agregar al calendario"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></a></div>
+          <div class="fc"><span class="fc-n">Clase 3</span><div><div class="fc-d">Miércoles 6 de mayo</div><div class="fc-h">20:00 a 22:30 hrs</div></div><a class="cal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&ctz=America/Santiago&details=Curso+Bionumerolog%C3%ADa+Base+22+con+Yerthy+Montes.+Zoom+en+vivo.&location=Zoom&text=Clase+3+Bionumerolog%C3%ADa+Base+22&dates=20260506T200000/20260506T223000" target="_blank" title="Agregar al calendario"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></a></div>
+          <div class="fc"><span class="fc-n">Clase 4</span><div><div class="fc-d">Miércoles 13 de mayo</div><div class="fc-h">20:00 a 22:30 hrs</div></div><a class="cal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&ctz=America/Santiago&details=Curso+Bionumerolog%C3%ADa+Base+22+con+Yerthy+Montes.+Zoom+en+vivo.&location=Zoom&text=Clase+4+Bionumerolog%C3%ADa+Base+22&dates=20260513T200000/20260513T223000" target="_blank" title="Agregar al calendario"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></a></div>
+          <div class="fc"><span class="fc-n">Clase 5</span><div><div class="fc-d">Miércoles 20 de mayo</div><div class="fc-h">20:00 a 22:30 hrs</div></div><a class="cal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&ctz=America/Santiago&details=Curso+Bionumerolog%C3%ADa+Base+22+con+Yerthy+Montes.+Zoom+en+vivo.&location=Zoom&text=Clase+5+Bionumerolog%C3%ADa+Base+22&dates=20260520T200000/20260520T223000" target="_blank" title="Agregar al calendario"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></a></div>
         </div>
         <div class="incl">
           <span>✓ Clases grabadas</span>
@@ -725,7 +731,7 @@ setTimeout(() => {
     hero.classList.add('vis');
     document.querySelector('[data-id="s1"]')?.classList.add('on');
   }
-}, 80);
+}, 200);
 
 document.querySelectorAll('.ch, .cf').forEach(c => {
   new IntersectionObserver(entries => {
@@ -737,7 +743,7 @@ document.querySelectorAll('.ch, .cf').forEach(c => {
         );
       }
     });
-  }, { root: sc, threshold: 0.15, rootMargin: '0px' }).observe(c);
+  }, { root: null, threshold: 0.1, rootMargin: '-70px 0px 0px 0px' }).observe(c);
 });
 
 function go(id) {
