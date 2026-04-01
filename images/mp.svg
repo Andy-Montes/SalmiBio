@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 72" fill="none">
+  <!-- Oval icon -->
+  <ellipse cx="36" cy="36" rx="32" ry="28" fill="#009EE3" stroke="#1a1d72" stroke-width="2.5"/>
+  <!-- Handshake simplified -->
+  <path d="M20 34 Q28 26 36 30 Q44 26 52 34 Q44 42 36 38 Q28 42 20 34Z" fill="#fff" stroke="#1a1d72" stroke-width="1.5"/>
+  <path d="M22 34 Q30 28 36 32" stroke="#1a1d72" stroke-width="1.2" fill="none"/>
+  <!-- Text: mercado pago -->
+  <text x="76" y="30" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#1a1d72">mercado</text>
+  <text x="76" y="50" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#1a1d72">pago</text>
+</svg>
