@@ -344,7 +344,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
   body{overflow:auto;padding-top:70px;}
   #sc{position:static;overflow:visible;scroll-snap-type:none;}
   .ch,.cf{scroll-snap-align:none;height:auto;min-height:auto;padding:48px 0;}
-  #dots{display:none;}
+  #dots,.fn,.h-wm{display:none;}
   .h-dancer{width:100%;opacity:0.28;}
   .s2-art{display:block;}
   .lg,.mod-grid{grid-template-columns:1fr;}
@@ -550,31 +550,31 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
     <div class="s3-head r">
       <span class="tag">Temario</span>
       <h2 class="h2">Contenido del <span class="tq">curso</span></h2>
-      <p style="font-size:.84rem;color:var(--mt);margin-top:6px;font-weight:300;">5 bloques de aprendizaje</p>
+      <p style="font-size:.84rem;color:var(--mt);margin-top:6px;font-weight:300;">5 contenidos del curso</p>
     </div>
     <div class="mod-grid r d1">
       <div class="mod-card">
-        <div class="mod-n">Bloque 01</div>
+        <div class="mod-n">Contenido del Curso 01</div>
         <div class="mod-title">Fundamentos de la Bionumerología Base 22</div>
         <p class="mod-body">Qué es, cómo se diferencia de la numerología tradicional y por qué trabaja con 22 números. Aprende a extraer todos los números de una fecha de nacimiento y su relación con los procesos biológicos y emocionales — Numerobiología Base 22.</p>
       </div>
       <div class="mod-card">
-        <div class="mod-n">Bloque 02</div>
+        <div class="mod-n">Contenido del Curso 02</div>
         <div class="mod-title">Los pilares de tu identidad numérica</div>
         <p class="mod-body">Personalidad Profunda (esencia interna), Nudo Emocional (cómo vivimos nuestras emociones), Comportamiento Exterior Social (cómo nos mostramos al mundo) y Comportamiento Interior Social (cómo somos con familia y entornos cercanos).</p>
       </div>
       <div class="mod-card">
-        <div class="mod-n">Bloque 03</div>
+        <div class="mod-n">Contenido del Curso 03</div>
         <div class="mod-title">Herencia y mensajes del árbol genealógico</div>
         <p class="mod-body">Mensaje de la Madre, Mensaje Propio y Mensaje del Padre. Herencia gestacional: los patrones impresos antes del nacimiento. Cómo estas energías del linaje condicionan nuestras creencias, comportamientos y destino.</p>
       </div>
       <div class="mod-card">
-        <div class="mod-n">Bloque 04</div>
+        <div class="mod-n">Contenido del Curso 04</div>
         <div class="mod-title">Posiciones exteriores y proyección profesional</div>
         <p class="mod-body">Cómo nos proyectamos en el ámbito profesional y en situaciones formales. La identidad laboral reflejada en los números y cómo alinearla con nuestro propósito de vida más profundo.</p>
       </div>
       <div class="mod-card">
-        <div class="mod-n">Bloque 05</div>
+        <div class="mod-n">Contenido del Curso 05</div>
         <div class="mod-title">Construcción e interpretación de la Carta Bionumerológica completa</div>
         <p class="mod-body">Integración de todos los pilares en una carta personal completa. Aprender a leer, interpretar y acompañar a otros con esta herramienta. Práctica clínica y metodología de consulta profesional con casos reales.</p>
       </div>
@@ -588,13 +588,11 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
     <div class="y4-photo"><img id="img-yerthy" src="" alt="Yerthy Montes"/></div>
     <div class="y-col">
       <span class="tag y-tag r">Tu instructora</span>
-      <h2 class="y-h r d1">Yerthy <span class="tq">Montes</span></h2>
+      <h2 class="y-h r d1">Yerthy <span class="tq">Montes</span> <span style="font-size:clamp(1rem,2vw,1.4rem);font-weight:400;color:var(--mt);">(Titi Montes)</span></h2>
       <p class="y-body r d2">
-        Terapeuta especializada en Descodificación Bio-Transgeneracional y fundadora de
-        la Escuela homónima. Acompaña procesos profundos de autoconocimiento integrando
-        la bionumerología como herramienta de comprensión emocional y sanación de
-        patrones heredados. Su trabajo combina rigor metodológico con una mirada
-        cálida, amorosa y profundamente humana.
+        Psicobioterapeuta y Especialista en Transgeneracional, Psicogenealogia,
+        Descodificación Biológica, y Fundadora de la Escuela BioTransgeneracional
+        con más de 15 años de experiencia clínica en procesos terapéuticos.
       </p>
       <a href="https://instagram.com/yerthybio" class="y-ig r d3" target="_blank">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
@@ -755,7 +753,7 @@ const MD = {
   transfer: {
     title: 'Transferencia BCI',
     rows: [
-      { l: 'Nombre', v: 'Yerthy Montes' },
+      { l: 'Nombre', v: 'Yerthy Montes (Titi Montes)' },
       { l: 'RUT', v: '13.489.894-1' },
       { l: 'Banco', v: 'BCI' },
       { l: 'Tipo', v: 'Cuenta Corriente' },
@@ -766,8 +764,8 @@ const MD = {
   },
   mp: {
     title: 'Mercado Pago',
-    rows: [],
-    note: 'Realiza tu pago y envía el comprobante por Instagram <strong>@yerthybio</strong>'
+    rows: [{ l: 'Link de pago', v: 'https://mpago.la/15WDkef' }],
+    note: 'Ingresa al link para pagar a <strong>Yerthy Montes (Titi Montes)</strong> · Envía el comprobante por Instagram <strong>@yerthybio</strong>'
   },
   paypal: {
     title: 'PayPal Internacional',
