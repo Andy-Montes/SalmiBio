@@ -414,6 +414,37 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 .enroll-pay-title{font-size:.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--mt);margin-bottom:12px;}
 .content-img-block{margin-bottom:24px;}
 
+/* ── COUNTDOWN ── */
+.h-countdown{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.h-countdown-label{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.7);margin-right:2px;}
+.cd-unit{display:flex;flex-direction:column;align-items:center;
+  background:rgba(255,255,255,.15);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:8px 12px;min-width:52px;}
+.cd-num{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;
+  color:#fff;line-height:1;text-shadow:0 2px 8px rgba(0,0,0,.15);}
+.cd-lbl{font-size:.5rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.65);margin-top:3px;}
+.cd-sep{font-size:1.2rem;color:rgba(255,255,255,.4);font-weight:300;align-self:flex-start;margin-top:8px;}
+
+/* ── BTN HERO PULSE ── */
+@keyframes btnPulse{
+  0%,100%{box-shadow:0 8px 28px rgba(59,191,191,.35),0 0 0 0 rgba(59,191,191,.45);}
+  60%{box-shadow:0 8px 28px rgba(59,191,191,.35),0 0 0 14px rgba(59,191,191,0);}
+}
+.btn-hero{animation:btnPulse 2.8s ease-in-out infinite;}
+
+/* ── STICKY MOBILE CTA ── */
+#sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:550;
+  background:linear-gradient(135deg,var(--tq),var(--lilaB));
+  padding:14px 20px;text-align:center;box-shadow:0 -4px 20px rgba(59,191,191,.3);}
+#sticky-cta button{background:none;border:none;color:#fff;font-family:'Montserrat',sans-serif;
+  font-size:.82rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:10px;width:100%;}
+#sticky-cta .scta-sub{font-size:.6rem;color:rgba(255,255,255,.75);letter-spacing:1.5px;
+  text-transform:uppercase;margin-top:3px;}
+@media(max-width:700px){#sticky-cta{display:block;}}
+
 /* RESPONSIVE */
 @media(max-width:860px){
   .s2-cols,.s5-grid,.mod-grid{grid-template-columns:1fr;}
@@ -422,11 +453,12 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
   .y-photo img{left:0;width:220px;height:280px;}
 }
 @media(max-width:700px){
-  body{overflow:auto;padding-top:70px;}
+  body{overflow:auto;padding-top:70px;padding-bottom:72px;}
   #sc{position:static;overflow:visible;scroll-snap-type:none;}
   .ch,.cf{scroll-snap-align:none;height:auto;min-height:auto;padding:48px 0;}
   #dots,.fn,.h-wm{display:none;}
   .h-dancer{width:100%;opacity:0.28;}
+  .h-text{padding-top:24px;}
   .s2-art{display:block;}
   .lg,.mod-grid{grid-template-columns:1fr;}
   .mod-card:nth-child(5){grid-column:1;}
@@ -437,6 +469,14 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
   .y4-wrap{flex-direction:column;gap:20px;align-items:flex-start;}
   .y4-photo img{width:180px;height:220px;}
   .y-col{margin:0;max-width:100%;}
+  .s3-layout{grid-template-columns:1fr;}
+  .s3-img-col{position:static;order:-1;margin-bottom:16px;}
+  .s5-grid>*:nth-child(1),.s5-grid>*:nth-child(2){order:unset;}
+  .cta-box p{flex-direction:column;align-items:center;gap:10px;}
+  .modal-wsp{flex-direction:column;text-align:center;}
+  .h-countdown{gap:6px;}
+  .cd-unit{min-width:44px;padding:6px 8px;}
+  .cd-num{font-size:1.2rem;}
 }
 
 /* ══ FIXED SITE HEADER ══ */
@@ -565,7 +605,15 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
         </span>
       </div>
       <div class="r d4">
-        <button onclick="openEnroll()" class="btn">
+        <div class="h-countdown" id="hero-countdown">
+          <span class="h-countdown-label">Inicia en</span>
+          <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><span class="cd-lbl">días</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit"><span class="cd-num" id="cd-h">--</span><span class="cd-lbl">hrs</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit"><span class="cd-num" id="cd-m">--</span><span class="cd-lbl">min</span></div>
+        </div>
+        <button onclick="openEnroll()" class="btn btn-hero">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.98 3.4 2 2 0 0 1 3.96 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           Inscríbete ahora
         </button>
@@ -812,6 +860,14 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 
 </div><!-- #sc -->
 
+<!-- STICKY MOBILE CTA -->
+<div id="sticky-cta">
+  <button onclick="openEnroll()">
+    ✦ Inscríbete ahora
+  </button>
+  <div class="scta-sub">29 Abril · Cupos limitados</div>
+</div>
+
 <!-- MODAL INSCRIPCIÓN -->
 <div class="mo" id="mo-enroll" onclick="closeEnrollO(event)">
   <div class="mc">
@@ -908,7 +964,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
     'img-f-escuela':  'images/escuela.png',
     'img-mp':         'images/mp.svg',
     'img-paypal':     'images/paypal.jpg',
-    'img-contenido':  'images/Screenshot 2026-04-02 173213.png'
+    'img-contenido':  'images/Screenshot 2026-04-02 200335.png'
   };
   Object.entries(M).forEach(([id, src]) => {
     const el = document.getElementById(id);
@@ -1075,6 +1131,27 @@ function cp(btn, txt) {
     }, 2000);
   });
 }
+
+/* ── COUNTDOWN ── */
+(function tickCountdown() {
+  const target = new Date('2026-04-29T20:00:00-03:00');
+  function update() {
+    const diff = target - Date.now();
+    if (diff <= 0) { document.getElementById('hero-countdown').style.display='none'; return; }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+  }
+  update(); setInterval(update, 60000);
+})();
+
+/* ── STICKY CTA — ocultar cuando modal abierto ── */
+const stickyCTA = document.getElementById('sticky-cta');
+function openEnrollWithSticky() { if(stickyCTA) stickyCTA.style.opacity='0'; openEnroll(); }
+if(stickyCTA) stickyCTA.querySelector('button').onclick = openEnroll;
 
 /* ═══════════════════════════════════════
    CINEMATIC ENHANCEMENTS
