@@ -414,6 +414,21 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 .enroll-pay-title{font-size:.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--mt);margin-bottom:12px;}
 .content-img-block{margin-bottom:24px;}
 
+/* ── YA INSCRITO ── */
+.ae-toggle{width:100%;background:none;border:1.5px dashed rgba(59,191,191,.4);border-radius:10px;
+  padding:11px 16px;color:var(--tqD);font-family:'Montserrat',sans-serif;font-size:.76rem;
+  font-weight:700;cursor:pointer;letter-spacing:.5px;transition:all .22s;margin-top:16px;
+  display:flex;align-items:center;justify-content:center;gap:8px;}
+.ae-toggle:hover{background:rgba(59,191,191,.07);border-color:var(--tq);}
+.ae-pay{margin-top:10px;padding:14px;background:rgba(59,191,191,.04);
+  border-radius:12px;border:1px solid rgba(59,191,191,.12);}
+
+/* ── MODAL RESPONSIVE ── */
+@media(max-width:500px){
+  .mc{padding:24px 18px;}
+  .pay-link-btn{font-size:.78rem;padding:13px;}
+}
+
 /* ── COUNTDOWN ── */
 .h-countdown{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
 .h-countdown-label{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
@@ -471,12 +486,18 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
   .y-col{margin:0;max-width:100%;}
   .s3-layout{grid-template-columns:1fr;}
   .s3-img-col{position:static;order:-1;margin-bottom:16px;}
+  .s3-num{font-size:1.2rem;}
   .s5-grid>*:nth-child(1),.s5-grid>*:nth-child(2){order:unset;}
   .cta-box p{flex-direction:column;align-items:center;gap:10px;}
   .modal-wsp{flex-direction:column;text-align:center;}
   .h-countdown{gap:6px;}
   .cd-unit{min-width:44px;padding:6px 8px;}
   .cd-num{font-size:1.2rem;}
+  .btn-hero{width:100%;justify-content:center;}
+  .h-pills{justify-content:center;}
+  .h-text{text-align:center;}
+  .h-note{justify-content:center;}
+  .h-countdown{justify-content:center;}
 }
 
 /* ══ FIXED SITE HEADER ══ */
@@ -807,9 +828,44 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
         </div>
+        <button class="ae-toggle" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.textContent=this.textContent.includes('▼')?'✓ ¿Ya estás inscrito? Paga aquí ▼':'✓ ¿Ya estás inscrito? Paga aquí ▼';">
+          ✓ ¿Ya estás inscrito? Paga aquí ▼
+        </button>
+        <div class="ae-pay" style="display:none;">
+          <div class="pay-stack" style="margin-bottom:0;">
+            <div class="pay-row" onclick="openM('transfer')">
+              <div class="pay-left">
+                <div class="pay-ic">
+                  <svg width="32" height="22" viewBox="0 0 32 22" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="22" rx="4" fill="#e8f8f8" stroke="#c5eaea" stroke-width="1"/>
+                    <rect y="7" width="32" height="7" fill="#3BBFBF" opacity=".45"/>
+                    <rect x="3" y="16" width="9" height="2.5" rx="1.2" fill="#c5eaea"/>
+                    <rect x="14" y="16" width="5" height="2.5" rx="1.2" fill="#c5eaea"/>
+                  </svg>
+                </div>
+                <div><h4>Transferencia BCI</h4><p>Chile</p></div>
+              </div>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="pay-row" onclick="openM('mp')">
+              <div class="pay-left">
+                <div class="pay-ic"><img src="images/mp.svg" alt="Mercado Pago" style="width:32px;height:22px;object-fit:contain;mix-blend-mode:multiply;"/></div>
+                <div><h4>Mercado Pago</h4><p>Hasta 6 cuotas</p></div>
+              </div>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="pay-row" onclick="openM('paypal')">
+              <div class="pay-left">
+                <div class="pay-ic"><img src="images/paypal.jpg" alt="PayPal" style="width:32px;height:22px;object-fit:contain;mix-blend-mode:multiply;"/></div>
+                <div><h4>PayPal</h4><p>Internacional</p></div>
+              </div>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:14px;flex-wrap:wrap;">
           <span class="price-big" style="font-size:clamp(1.4rem,2.4vw,2rem);">🇨🇱 $198.000</span><span class="price-usd" style="font-size:1.1rem;font-weight:600;color:var(--lilaB);">&nbsp;·&nbsp; $220 USD</span>
-          <span class="price-note" style="width:100%;margin-top:2px;">Hasta en 2 cuotas</span>
+          <span class="price-note" style="width:100%;margin-top:2px;">Hasta en 6 cuotas <span style="color:var(--lilaD);">(Mercado Pago)</span></span>
         </div>
         <div class="cta-box" style="margin-top:14px;">
           <p style="font-size:.78rem;color:var(--mt);margin-bottom:10px;">¿Tienes dudas o necesitas más info? Escríbeme aquí:</p>
@@ -936,9 +992,14 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
       </div>
-      <button onclick="closeEnroll()" style="width:100%;margin-top:14px;padding:10px;background:none;border:none;
-        color:var(--mt);font-family:'Montserrat',sans-serif;font-size:.78rem;cursor:pointer;
-        text-decoration:underline;text-underline-offset:3px;">Lo haré después</button>
+      <div style="margin-top:16px;padding:12px 14px;background:#f8f6fb;border-radius:10px;text-align:center;">
+        <p style="font-size:.72rem;color:var(--mt);margin-bottom:8px;">✓ Tus datos ya están guardados — puedes pagar cuando quieras</p>
+        <button onclick="closeEnroll()" style="background:none;border:1.5px solid rgba(168,85,200,.3);border-radius:8px;
+          padding:9px 22px;color:var(--lilaD);font-family:'Montserrat',sans-serif;font-size:.78rem;
+          font-weight:700;cursor:pointer;letter-spacing:.5px;transition:all .2s;">
+          Lo haré después
+        </button>
+      </div>
     </div>
   </div>
 </div>
