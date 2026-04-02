@@ -334,6 +334,22 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 .mn{font-size:.75rem;font-weight:300;color:var(--mt);font-style:italic;
     margin-top:16px;padding-top:14px;border-top:1px solid #f0e8f5;text-align:center;line-height:1.65;}
 
+/* MODAL INSCRIPCIÓN */
+.enroll-progress{display:flex;gap:8px;margin-bottom:20px;}
+.ep-dot{width:28px;height:5px;border-radius:3px;background:#e8e0f0;transition:background .3s;}
+.ep-dot.ep-active{background:var(--tq);}
+.ep-dot.ep-done{background:var(--lilaD);}
+.enroll-sub{font-size:.82rem;color:var(--mt);margin-bottom:18px;margin-top:-10px;}
+.ef{margin-bottom:13px;}
+.ef label{display:block;font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:5px;}
+.ef input{width:100%;box-sizing:border-box;border:1.5px solid #e8e0f0;border-radius:9px;padding:11px 14px;
+          font-family:'Montserrat',sans-serif;font-size:.88rem;color:var(--ink);outline:none;transition:border .2s;}
+.ef input:focus{border-color:var(--tq);}
+.enroll-submit{width:100%;margin-top:6px;justify-content:center;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-size:.88rem;}
+.enroll-submit:disabled{opacity:.6;cursor:not-allowed;}
+.enroll-pay-title{font-size:.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--mt);margin-bottom:12px;}
+.content-img-block{margin-bottom:24px;}
+
 /* RESPONSIVE */
 @media(max-width:860px){
   .s2-cols,.s5-grid,.mod-grid{grid-template-columns:1fr;}
@@ -484,10 +500,10 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
         </span>
       </div>
       <div class="r d4">
-        <a href="https://wa.me/56975685803" class="btn">
+        <button onclick="openEnroll()" class="btn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.98 3.4 2 2 0 0 1 3.96 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          Quiero inscribirme
-        </a>
+          Inscríbete ahora
+        </button>
         <p class="h-note">CUPOS LIMITADOS</p>
       </div>
     </div>
@@ -552,7 +568,10 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
       <span class="tag">Temario</span>
       <h2 class="h2">Contenido del <span class="tq">curso</span></h2>
     </div>
-    <div class="mod-grid r d1">
+    <div class="content-img-block r d1">
+      <img id="img-contenido" src="" alt="Contenido del curso" style="width:100%;max-height:420px;object-fit:cover;border-radius:16px;box-shadow:0 12px 40px rgba(59,191,191,.15);display:block;"/>
+    </div>
+    <div class="mod-grid r d2">
       <div class="mod-card">
 <div class="mod-title">Fundamentos de la Bionumerología Base 22</div>
         <p class="mod-body">Qué es, cómo se diferencia de la numerología tradicional y por qué trabaja con 22 números. Aprende a extraer todos los números de una fecha de nacimiento y su relación con los procesos biológicos y emocionales — Numerobiología Base 22.</p>
@@ -587,9 +606,8 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
       <p class="y-body r d2">
         Psicobioterapeuta y Especialista en Transgeneracional, Psicogenealogia,
         Descodificación Biológica, y Fundadora de la Escuela BioTransgeneracional
-        con más de 15 años de experiencia clínica en procesos terapéuticos.
-        Terapeuta especializada en Descodificación Bio-Transgeneracional y fundadora de
-        la Escuela homónima. Acompaña procesos profundos de autoconocimiento integrando
+        con más de 14 años de experiencia clínica en procesos terapéuticos.
+        Acompaña procesos profundos de autoconocimiento integrando
         la bionumerología como herramienta de comprensión emocional y sanación de
         patrones heredados. Su trabajo combina rigor metodológico con una mirada
         cálida, amorosa y profundamente humana.
@@ -656,11 +674,11 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
           </div>
         </div>
         <div class="cta-box">
-          <a href="https://wa.me/56975685803" class="btn">
+          <button onclick="openEnroll()" class="btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.98 3.4 2 2 0 0 1 3.96 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            Inscribirme ahora
-          </a>
-          <p>¿Dudas? Escríbenos por <strong>WhatsApp</strong> o Instagram</p>
+            Inscríbete ahora
+          </button>
+          <p>¿Dudas? Escríbenos por <strong><a href="https://wa.me/56975685803" style="color:var(--tq);text-decoration:none;" target="_blank">WhatsApp</a></strong> o Instagram</p>
         </div>
       </div>
       <div class="r d2">
@@ -697,6 +715,78 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 
 </div><!-- #sc -->
 
+<!-- MODAL INSCRIPCIÓN -->
+<div class="mo" id="mo-enroll" onclick="closeEnrollO(event)">
+  <div class="mc">
+    <button class="mx" onclick="closeEnroll()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <!-- Paso 1: datos de contacto -->
+    <div id="enroll-step1">
+      <div class="enroll-progress">
+        <span class="ep-dot ep-active" id="ep1"></span>
+        <span class="ep-dot" id="ep2"></span>
+      </div>
+      <h3 style="margin-bottom:6px;">Para completar tu inscripción</h3>
+      <p class="enroll-sub">Llena tus datos de contacto</p>
+      <form id="enroll-form" onsubmit="submitEnroll(event)">
+        <div class="ef">
+          <label>Nombre completo</label>
+          <input type="text" id="ef-nombre" placeholder="Tu nombre completo" required/>
+        </div>
+        <div class="ef">
+          <label>Teléfono</label>
+          <input type="tel" id="ef-tel" placeholder="+56 9 XXXX XXXX" required/>
+        </div>
+        <div class="ef">
+          <label>Email</label>
+          <input type="email" id="ef-email" placeholder="tu@email.com" required/>
+        </div>
+        <button type="submit" class="btn enroll-submit" id="enroll-btn">Continuar →</button>
+      </form>
+    </div>
+    <!-- Paso 2: método de pago -->
+    <div id="enroll-step2" style="display:none;">
+      <div class="enroll-progress">
+        <span class="ep-dot ep-done"></span>
+        <span class="ep-dot ep-active"></span>
+      </div>
+      <h3 style="margin-bottom:6px;">¡Listo! Ahora elige cómo pagar</h3>
+      <p class="enroll-sub">Selecciona tu método de pago preferido</p>
+      <div class="pay-stack" style="margin-top:4px;">
+        <div class="pay-row" onclick="openM('transfer')">
+          <div class="pay-left">
+            <div class="pay-ic">
+              <svg width="32" height="22" viewBox="0 0 32 22" xmlns="http://www.w3.org/2000/svg">
+                <rect width="32" height="22" rx="4" fill="#e8f8f8" stroke="#c5eaea" stroke-width="1"/>
+                <rect y="7" width="32" height="7" fill="#3BBFBF" opacity=".45"/>
+                <rect x="3" y="16" width="9" height="2.5" rx="1.2" fill="#c5eaea"/>
+                <rect x="14" y="16" width="5" height="2.5" rx="1.2" fill="#c5eaea"/>
+              </svg>
+            </div>
+            <div><h4>Transferencia BCI</h4><p>Chile</p></div>
+          </div>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="pay-row" onclick="openM('mp')">
+          <div class="pay-left">
+            <div class="pay-ic"><img src="images/mp.svg" alt="Mercado Pago" style="width:32px;height:22px;object-fit:contain;mix-blend-mode:multiply;"/></div>
+            <div><h4>Mercado Pago</h4><p>Chile</p></div>
+          </div>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="pay-row" onclick="openM('paypal')">
+          <div class="pay-left">
+            <div class="pay-ic"><img src="images/paypal.jpg" alt="PayPal" style="width:32px;height:22px;object-fit:contain;mix-blend-mode:multiply;"/></div>
+            <div><h4>PayPal</h4><p>Internacional</p></div>
+          </div>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- MODAL -->
 <div class="mo" id="mo" onclick="closeMO(event)">
   <div class="mc">
@@ -717,7 +807,8 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
     'img-escuela-h':  'images/escuela.png',
     'img-f-escuela':  'images/escuela.png',
     'img-mp':         'images/mp.svg',
-    'img-paypal':     'images/paypal.jpg'
+    'img-paypal':     'images/paypal.jpg',
+    'img-contenido':  'images/contenido.jpg'
   };
   Object.entries(M).forEach(([id, src]) => {
     const el = document.getElementById(id);
@@ -751,6 +842,49 @@ document.querySelectorAll('.ch, .cf').forEach(c => {
 
 function go(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ── MODAL INSCRIPCIÓN ── */
+const SHEETS_URL = 'PENDIENTE'; // reemplazar con la URL del Google Apps Script de la hermana
+
+function openEnroll() {
+  document.getElementById('enroll-step1').style.display = '';
+  document.getElementById('enroll-step2').style.display = 'none';
+  document.getElementById('enroll-form').reset();
+  const btn = document.getElementById('enroll-btn');
+  btn.textContent = 'Continuar →';
+  btn.disabled = false;
+  document.getElementById('mo-enroll').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeEnroll() {
+  document.getElementById('mo-enroll').classList.remove('on');
+  document.body.style.overflow = '';
+}
+function closeEnrollO(e) {
+  if (e.target === document.getElementById('mo-enroll')) closeEnroll();
+}
+function submitEnroll(e) {
+  e.preventDefault();
+  const btn = document.getElementById('enroll-btn');
+  const nombre = document.getElementById('ef-nombre').value.trim();
+  const tel    = document.getElementById('ef-tel').value.trim();
+  const email  = document.getElementById('ef-email').value.trim();
+  btn.textContent = 'Enviando…';
+  btn.disabled = true;
+  const data = { nombre, telefono: tel, email, timestamp: new Date().toISOString() };
+  if (SHEETS_URL === 'PENDIENTE') {
+    // URL no configurada aún — avanzar igual al paso 2
+    goToStep2();
+    return;
+  }
+  fetch(SHEETS_URL, { method: 'POST', body: JSON.stringify(data) })
+    .then(() => goToStep2())
+    .catch(() => goToStep2()); // si falla igual avanza
+}
+function goToStep2() {
+  document.getElementById('enroll-step1').style.display = 'none';
+  document.getElementById('enroll-step2').style.display = '';
 }
 
 /* ── MODAL DATA ── */
