@@ -22,8 +22,9 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
     position:relative;overflow:hidden;display:flex;align-items:center;}
 .cf{scroll-snap-align:start;scroll-snap-stop:normal;height:calc(100vh - 70px);
     position:relative;overflow-y:hidden;overflow-x:hidden;display:flex;align-items:center;padding:56px 0;}
-#s5{overflow-y:auto;height:auto;min-height:calc(100vh - 70px);}
+#s5{overflow-y:auto;height:calc(100vh - 70px);}
 #s5::-webkit-scrollbar{display:none;}
+#s5{scrollbar-width:none;}
 
 /* DOTS */
 #dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);
@@ -653,7 +654,12 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
         </span>
       </div>
       <div class="r d4">
-        <div class="h-countdown" id="hero-countdown">
+        <button onclick="openEnroll()" class="btn btn-hero">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.98 3.4 2 2 0 0 1 3.96 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Inscríbete ahora
+        </button>
+        <p class="h-note">CUPOS LIMITADOS</p>
+        <div class="h-countdown" id="hero-countdown" style="margin-top:16px;">
           <span class="h-countdown-label">Inicia en</span>
           <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><span class="cd-lbl">días</span></div>
           <span class="cd-sep">:</span>
@@ -661,11 +667,6 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
           <span class="cd-sep">:</span>
           <div class="cd-unit"><span class="cd-num" id="cd-m">--</span><span class="cd-lbl">min</span></div>
         </div>
-        <button onclick="openEnroll()" class="btn btn-hero">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.98 3.4 2 2 0 0 1 3.96 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          Inscríbete ahora
-        </button>
-        <p class="h-note">CUPOS LIMITADOS</p>
       </div>
     </div>
   </div>
