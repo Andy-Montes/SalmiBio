@@ -255,22 +255,75 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
            color:var(--lilaB);line-height:1.7;position:relative;z-index:1;padding-left:6px;}
 
 /* ══ FAQ ══ */
-#sfaq{background:linear-gradient(145deg,#16112a 0%,#1e1535 60%,#131d28 100%);}
+#sfaq{background:linear-gradient(145deg,#1a0830 0%,#0f1e20 55%,#1e0a34 100%);
+  overflow-y:auto;height:calc(100vh - 70px);align-items:flex-start;
+  padding-top:36px;padding-bottom:36px;}
+#sfaq::-webkit-scrollbar{display:none;}
 #sfaq .tag{color:var(--tqL);}
-.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;margin-top:22px;}
-.faq-item{border-bottom:1px solid rgba(255,255,255,.1);}
-.faq-item summary{list-style:none;cursor:pointer;padding:15px 0;
-  display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.faq-art{position:absolute;right:0;top:0;bottom:0;width:28%;
+  pointer-events:none;z-index:0;overflow:hidden;}
+.faq-art img{width:100%;height:100%;object-fit:cover;opacity:.18;}
+.faq-art::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(to left,transparent 0%,#1a0830 65%);}
+.faq-block{margin-bottom:22px;}
+.faq-block-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;
+  color:#fff;margin-bottom:8px;padding-bottom:8px;
+  border-bottom:1px solid rgba(59,191,191,.3);
+  display:flex;align-items:center;gap:10px;}
+.faq-block-title::before{content:'';display:inline-block;width:18px;height:2px;flex-shrink:0;
+  background:linear-gradient(to right,var(--tq),var(--lilaD));}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.07);}
+.faq-item summary{list-style:none;cursor:pointer;padding:13px 0;
+  display:flex;align-items:center;gap:12px;}
 .faq-item summary::-webkit-details-marker{display:none;}
-.faq-q{font-size:.85rem;font-weight:700;color:#fff;line-height:1.35;flex:1;}
-.faq-a{font-size:.79rem;font-weight:300;color:rgba(255,255,255,.68);
-  line-height:1.85;padding-bottom:16px;}
+.faq-q{font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);line-height:1.35;flex:1;}
+.faq-a{font-size:.77rem;font-weight:300;color:rgba(255,255,255,.62);
+  line-height:1.85;padding-bottom:14px;padding-left:28px;}
 .faq-arrow{flex-shrink:0;color:var(--tq);transition:transform .3s ease;}
 details[open] .faq-arrow{transform:rotate(45deg);}
-.faq-num{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;
-  color:var(--tq);opacity:.55;min-width:28px;flex-shrink:0;}
-@media(max-width:860px){.faq-grid{grid-template-columns:1fr;}}
-@media(max-width:700px){.faq-grid{gap:0;}}
+.faq-num{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;
+  color:var(--tq);opacity:.5;min-width:24px;flex-shrink:0;}
+
+/* ══ CHATBOT ASISTENTE BIO ══ */
+#bio-btn{position:fixed;bottom:90px;right:20px;z-index:480;
+  width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--lilaD),var(--tq));
+  color:#fff;font-size:1.15rem;box-shadow:0 6px 22px rgba(168,85,200,.45);
+  transition:transform .2s,box-shadow .2s;}
+#bio-btn:hover{transform:scale(1.1);box-shadow:0 10px 30px rgba(168,85,200,.55);}
+#bio-chat{position:fixed;bottom:152px;right:20px;z-index:480;
+  width:315px;background:#fff;border-radius:18px;
+  box-shadow:0 16px 48px rgba(0,0,0,.2);display:none;
+  flex-direction:column;overflow:hidden;animation:mIn .25s ease;}
+#bio-chat.open{display:flex;}
+#bio-header{background:linear-gradient(135deg,var(--lilaD),var(--tq));
+  color:#fff;padding:13px 16px;font-size:.82rem;font-weight:700;
+  display:flex;align-items:center;justify-content:space-between;letter-spacing:.5px;}
+#bio-header button{background:none;border:none;color:#fff;cursor:pointer;
+  font-size:1.1rem;padding:2px 5px;border-radius:50%;}
+#bio-messages{padding:12px;min-height:100px;max-height:200px;overflow-y:auto;
+  display:flex;flex-direction:column;gap:8px;scrollbar-width:none;}
+#bio-messages::-webkit-scrollbar{display:none;}
+.bio-msg-bot{background:var(--lilaF);border-radius:12px 12px 12px 4px;
+  padding:10px 13px;font-size:.75rem;color:var(--ink);line-height:1.6;max-width:92%;}
+.bio-msg-user{background:linear-gradient(135deg,var(--tq),var(--lilaB));
+  color:#fff;border-radius:12px 12px 4px 12px;
+  padding:10px 13px;font-size:.75rem;align-self:flex-end;max-width:88%;}
+#bio-chips{padding:10px 12px;display:flex;flex-wrap:wrap;gap:5px;
+  border-top:1px solid rgba(201,168,212,.2);max-height:120px;overflow-y:auto;scrollbar-width:none;}
+#bio-chips::-webkit-scrollbar{display:none;}
+.bio-chip{background:rgba(59,191,191,.07);border:1px solid rgba(59,191,191,.28);
+  border-radius:100px;padding:5px 11px;font-size:.65rem;font-weight:600;
+  color:var(--tqD);cursor:pointer;transition:all .18s;line-height:1.3;}
+.bio-chip:hover{background:rgba(59,191,191,.17);border-color:var(--tq);}
+#bio-wsp{display:flex;align-items:center;justify-content:center;gap:7px;
+  padding:11px;background:#f0fdf4;color:#128C7E;font-size:.73rem;font-weight:700;
+  text-decoration:none;border-top:1px solid rgba(37,211,102,.15);transition:background .2s;}
+#bio-wsp:hover{background:#dcfce7;}
+@media(max-width:700px){
+  #bio-chat{right:10px;left:10px;width:auto;bottom:130px;}
+  #bio-btn{bottom:80px;right:16px;}
+}
 
 /* ══════════════════════════════════
    §5 INSCRIPCIÓN
@@ -825,68 +878,55 @@ details[open] .faq-arrow{transform:rotate(45deg);}
 
 <!-- ════════════ §FAQ ════════════ -->
 <section class="cf" id="sfaq">
-  <div class="wrap">
-    <div class="r" style="margin-bottom:6px;">
+  <div class="faq-art"><img src="images/journal.jpg" alt=""/></div>
+  <div class="wrap" style="position:relative;z-index:2;">
+    <div class="r" style="margin-bottom:18px;">
       <span class="tag">Preguntas frecuentes</span>
-      <h2 class="h2" style="color:#fff;">Lo que más nos <span style="color:var(--tq);">preguntan</span></h2>
+      <h2 class="h2" style="color:#fff;">Preguntas <span style="color:var(--tq);">frecuentes</span></h2>
     </div>
-    <div class="faq-grid">
 
-      <details class="faq-item sl">
-        <summary>
-          <span class="faq-num">01</span>
-          <span class="faq-q">¿Necesito conocimientos previos?</span>
-          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </summary>
-        <p class="faq-a">No. El curso está diseñado desde cero para que cualquier persona pueda comprender e interpretar la Bionumerología. No necesitas saber matemática ni numerología. Cada clase te lleva paso a paso, con lenguaje claro, ejemplos reales y herramientas prácticas.</p>
-      </details>
-
-      <details class="faq-item sr">
-        <summary>
-          <span class="faq-num">02</span>
-          <span class="faq-q">¿Qué es la Carta BioNumerológica?</span>
-          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </summary>
-        <p class="faq-a">Es un mapa vibracional y emocional que revela la estructura profunda del alma a través de los números de tu fecha de nacimiento. No solo dice quién eres, sino por qué fuiste programado para vivir ciertas experiencias.</p>
-      </details>
-
-      <details class="faq-item sl">
-        <summary>
-          <span class="faq-num">03</span>
-          <span class="faq-q">¿En qué se diferencia de la numerología tradicional?</span>
-          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </summary>
-        <p class="faq-a">La Bionumerología Base 22 integra la biología, el inconsciente familiar y el campo energético. Trabaja con 22 frecuencias y 19 pilares que mapean tu biología emocional completa — mucho más profundo que un simple número de vida.</p>
-      </details>
-
-      <details class="faq-item sr">
-        <summary>
-          <span class="faq-num">04</span>
-          <span class="faq-q">¿Para qué sirve en mi vida diaria?</span>
-          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </summary>
-        <p class="faq-a">Funciona como una guía de navegación interior. Te ayuda a identificar conflictos emocionales recurrentes, reconciliarte con tu historia familiar, comprender por qué atraes ciertos vínculos y tomar decisiones más coherentes con tu energía real.</p>
-      </details>
-
-      <details class="faq-item sl">
-        <summary>
-          <span class="faq-num">05</span>
-          <span class="faq-q">¿También sirve para entender mis relaciones?</span>
-          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </summary>
-        <p class="faq-a">Sí. Cuando dos personas se relacionan, sus números entran en resonancia. La Carta revela los puntos de atracción y desafío, por qué ciertos vínculos repiten dinámicas, y qué viene a sanar cada relación — de pareja, familia o trabajo.</p>
-      </details>
-
-      <details class="faq-item sr">
-        <summary>
-          <span class="faq-num">06</span>
-          <span class="faq-q">¿Cómo me ayuda a tomar mejores decisiones?</span>
-          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </summary>
-        <p class="faq-a">Te enseña a decidir desde tu vibración y no desde el miedo. Cada número tiene un modo natural de actuar y crear. Cuando aprendes a escuchar esa energía, eliges con más claridad y reconoces cuándo estás repitiendo un patrón heredado.</p>
-      </details>
-
+    <!-- BLOQUE 1 -->
+    <div class="faq-block r d1">
+      <h3 class="faq-block-title">El mapa de tu alma</h3>
+      <details class="faq-item"><summary><span class="faq-num">01</span><span class="faq-q">¿Qué es la Carta BioNumerológica?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">La Carta Numerológica —o Carta Bionumerológica Base 22— es un mapa vibracional y emocional que revela la estructura profunda del alma a través de los números presentes en la fecha de nacimiento.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">02</span><span class="faq-q">¿Qué representa cada número dentro de la Carta?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Cada número representa una frecuencia que codifica información sobre la personalidad, el propósito, las emociones, los aprendizajes y los programas inconscientes heredados del linaje familiar.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">03</span><span class="faq-q">¿En qué se diferencia de la numerología tradicional?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">A diferencia de la numerología tradicional, la Bionumerología Base 22 integra la biología, el inconsciente familiar y el campo energético.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">04</span><span class="faq-q">¿Qué permite comprender este enfoque?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Permite comprender no solo quién eres, sino también por qué fuiste programado para vivir ciertas experiencias.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">05</span><span class="faq-q">¿Para qué sirve la Carta BioNumerológica?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sirve como una herramienta de autoconocimiento profundo, que te ayuda a comprender tus reacciones, tus vínculos, tus crisis y tus dones, desde la lógica del alma.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">06</span><span class="faq-q">¿Cómo se calcula la Carta?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Su cálculo parte de la fecha de nacimiento completa, a partir de la cual se derivan 19 pilares principales.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">07</span><span class="faq-q">¿Qué revelan esos pilares?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Revelan distintos aspectos de tu biología emocional: desde tu Personalidad Profunda (PP) y tu Nudo Emocional (NE), hasta tu CIS, CES, PI, Máscara, BE, NR, entre otros.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">08</span><span class="faq-q">¿Cómo se obtiene cada pilar?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Cada pilar se obtiene mediante fórmulas específicas en Base 22, donde se reduce cada número de manera consciente, respetando las reglas de los números maestros (26/8, 33/6 y 40/4).</p></details>
+      <details class="faq-item"><summary><span class="faq-num">09</span><span class="faq-q">¿Qué muestra finalmente la Carta?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Muestra quién eres en esencia, cómo operas emocionalmente y hacia dónde te dirige tu propósito evolutivo.</p></details>
     </div>
+
+    <!-- BLOQUE 2 -->
+    <div class="faq-block r d2">
+      <h3 class="faq-block-title">Cómo te transforma</h3>
+      <details class="faq-item"><summary><span class="faq-num">10</span><span class="faq-q">¿Cómo aplico la Carta en mi vida?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Tu Carta Numerológica es una guía de navegación que te ayuda a comprenderte con más profundidad y vivir con mayor coherencia.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">11</span><span class="faq-q">¿Qué puedo comprender cuando conozco mis números?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Puedes comprender tus reacciones, tus vínculos, tus crisis y tus dones desde una lógica más profunda y consciente.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">12</span><span class="faq-q">¿Qué me ayuda a identificar en mí?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Te ayuda a identificar los conflictos emocionales recurrentes y su raíz inconsciente.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">13</span><span class="faq-q">¿También sirve para comprender mi historia familiar?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Permite reconciliarte con tu historia familiar y comprender los mandatos transgeneracionales que te habitan.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">14</span><span class="faq-q">¿Puede ayudarme a tomar decisiones más conscientes?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Te ayuda a tomar decisiones más conscientes y alineadas con tu energía real.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">15</span><span class="faq-q">¿Me puede mostrar por qué atraigo ciertos vínculos o desafíos?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Puede ayudarte a comprender por qué atraes ciertos vínculos, proyectos o desafíos.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">16</span><span class="faq-q">¿También ayuda a potenciar mis dones y transformar patrones?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Permite potenciar tus dones y reconfigurar los patrones que te limitan.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">17</span><span class="faq-q">¿Qué significa aplicarla realmente?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Aplicarla es vivir en coherencia con tu vibración. Es aprender a leer tu historia en clave de conciencia y transformar el número en camino.</p></details>
+    </div>
+
+    <!-- BLOQUE 3 -->
+    <div class="faq-block r d3">
+      <h3 class="faq-block-title">El curso y tus vínculos</h3>
+      <details class="faq-item"><summary><span class="faq-num">18</span><span class="faq-q">¿Yo no sé nada del tema, puedo igual tomar el curso?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí, absolutamente. El curso está diseñado desde cero, para que cualquier persona —sin conocimientos previos— pueda comprender, interpretar y aplicar la Bionumerología en su vida.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">19</span><span class="faq-q">¿Necesito saber matemática o numerología para aprender?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">No. No necesitas saber matemática ni numerología: solo tener deseo genuino de conocerte y sanar.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">20</span><span class="faq-q">¿Cómo está enseñado el curso?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Cada clase te lleva paso a paso, con lenguaje claro, ejemplos reales y herramientas prácticas.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">21</span><span class="faq-q">¿Desde qué enfoque está pensado el método?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">El método está pensado para acompañarte desde la emoción, no desde la teoría.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">22</span><span class="faq-q">¿Cómo influyen los números en nuestras relaciones?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Cada número vibra en una frecuencia determinada. Cuando dos personas se relacionan —ya sea pareja, familia, amistad o vínculo laboral— sus números entran en resonancia y crean una nueva vibración compartida.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">23</span><span class="faq-q">¿Qué permite comprender esto dentro de un vínculo?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Permite reconocer los puntos de atracción y desafío, comprender por qué ciertos vínculos repiten patrones y descubrir qué te espeja el otro.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">24</span><span class="faq-q">¿También muestra qué vienes a sanar a través de una relación?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Permite descubrir qué te espeja el otro y qué vienes a sanar a través de esa relación.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">25</span><span class="faq-q">¿Se pueden detectar relaciones kármicas o inevitables?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. En la Bionumerología Base 22, incluso se pueden detectar por qué ciertas relaciones parecen "inevitables" o profundamente kármicas.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">26</span><span class="faq-q">¿Cómo puede la Bionumerología ayudarme a tomar decisiones más alineadas?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">La Bionumerología te enseña a decidir desde tu vibración y no desde el miedo.</p></details>
+      <details class="faq-item"><summary><span class="faq-num">27</span><span class="faq-q">¿Qué te permite hacer cuando aprendes a escuchar tu energía?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Te permite elegir el momento adecuado para iniciar algo, entender si una oportunidad está alineada con tu propósito y reconocer cuándo estás repitiendo un patrón familiar o tomando decisiones desde una herida.</p></details>
+    </div>
+
   </div>
 </section>
 
@@ -1125,6 +1165,36 @@ details[open] .faq-arrow{transform:rotate(45deg);}
     <div id="mc"></div>
   </div>
 </div>
+
+<!-- ASISTENTE BIO CHATBOT -->
+<div id="bio-chat">
+  <div id="bio-header">
+    <span>✦ Asistente Bio</span>
+    <button onclick="toggleChat()" aria-label="Cerrar">✕</button>
+  </div>
+  <div id="bio-messages">
+    <div class="bio-msg-bot">Hola 🌿 Soy el Asistente Bio. ¿Tienes alguna pregunta sobre el curso o la Bionumerología?</div>
+  </div>
+  <div id="bio-chips">
+    <button class="bio-chip" onclick="bioAsk(0)">¿Qué es la Carta?</button>
+    <button class="bio-chip" onclick="bioAsk(1)">¿Necesito conocimientos previos?</button>
+    <button class="bio-chip" onclick="bioAsk(2)">¿Para qué sirve?</button>
+    <button class="bio-chip" onclick="bioAsk(3)">¿Diferencia con numerología?</button>
+    <button class="bio-chip" onclick="bioAsk(4)">¿Me sirve para relaciones?</button>
+    <button class="bio-chip" onclick="bioAsk(5)">¿Cómo se calcula?</button>
+    <button class="bio-chip" onclick="bioAsk(6)">¿Cuándo inicia el curso?</button>
+    <button class="bio-chip" onclick="bioAsk(7)">¿Cuánto cuesta?</button>
+    <button class="bio-chip" onclick="bioAsk(8)">¿Sin experiencia espiritual?</button>
+    <button class="bio-chip" onclick="bioAsk(9)">¿Quedan grabaciones?</button>
+    <button class="bio-chip" onclick="bioAsk(10)">¿Sirve para decisiones?</button>
+    <button class="bio-chip" onclick="bioAsk(11)">¿Vínculos kármicos?</button>
+  </div>
+  <a href="https://wa.me/56975685803" id="bio-wsp" target="_blank" rel="noopener">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    Quiero hablar con Titi
+  </a>
+</div>
+<button id="bio-btn" onclick="toggleChat()" aria-label="Asistente Bio">✦</button>
 
 <script>
 /* ── INJECT IMAGES ── */
@@ -1428,6 +1498,43 @@ if (mg) {
     c.classList.add(i % 2 === 0 ? 'sl' : 'sr');
     c.style.transitionDelay = (i * 0.09) + 's';
   });
+}
+
+/* ── ASISTENTE BIO ── */
+const BOT_QA = [
+  {q:'¿Qué es la Carta BioNumerológica?', a:'Es un mapa vibracional y emocional que revela la estructura profunda del alma a través de los números de tu fecha de nacimiento. No solo dice quién eres, sino por qué fuiste programado para vivir ciertas experiencias.'},
+  {q:'¿Necesito conocimientos previos?', a:'No. El curso está diseñado desde cero. No necesitas saber matemática ni numerología — solo deseo genuino de conocerte y sanar.'},
+  {q:'¿Para qué sirve?', a:'Como herramienta de autoconocimiento profundo: comprender tus reacciones, vínculos, crisis y dones desde la lógica del alma.'},
+  {q:'¿Diferencia con numerología?', a:'Integra la biología, el inconsciente familiar y el campo energético. Trabaja con 22 frecuencias y 19 pilares — mucho más profundo que un número de vida tradicional.'},
+  {q:'¿Me sirve para relaciones?', a:'Sí. Cuando dos personas se relacionan, sus números entran en resonancia. La Carta revela puntos de atracción, patrones que se repiten y qué vienes a sanar en cada relación.'},
+  {q:'¿Cómo se calcula?', a:'A partir de tu fecha de nacimiento se derivan 19 pilares: Personalidad Profunda (PP), Nudo Emocional (NE), CIS, CES, PI, Máscara, BE, NR y más.'},
+  {q:'¿Cuándo inicia el curso?', a:'El 29 de abril de 2026. Son 5 clases los miércoles de 20:00 a 22:30 hrs Chile, en vivo por Zoom.'},
+  {q:'¿Cuánto cuesta?', a:'$198.000 CLP · $220 USD. Puedes pagar en hasta 6 cuotas con Mercado Pago, por transferencia BCI o PayPal.'},
+  {q:'¿Sin experiencia espiritual?', a:'Totalmente. El método está pensado para acompañarte desde la emoción, no desde la teoría. Cualquier persona puede aprender.'},
+  {q:'¿Quedan grabaciones?', a:'Sí. Todas las clases quedan grabadas para que puedas revisarlas a tu ritmo.'},
+  {q:'¿Sirve para decisiones?', a:'Sí. Te enseña a decidir desde tu vibración y no desde el miedo — reconociendo cuándo repites un patrón heredado o cuándo una oportunidad está realmente alineada contigo.'},
+  {q:'¿Vínculos kármicos?', a:'Sí. En la Bionumerología Base 22 incluso se puede detectar por qué ciertas relaciones parecen inevitables o profundamente kármicas.'}
+];
+let chatOpen = false;
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('bio-chat').classList.toggle('open', chatOpen);
+}
+function bioAsk(i) {
+  const msgs = document.getElementById('bio-messages');
+  const d = BOT_QA[i];
+  const u = document.createElement('div');
+  u.className = 'bio-msg-user';
+  u.textContent = d.q;
+  msgs.appendChild(u);
+  setTimeout(() => {
+    const b = document.createElement('div');
+    b.className = 'bio-msg-bot';
+    b.textContent = d.a;
+    msgs.appendChild(b);
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 380);
+  msgs.scrollTop = msgs.scrollHeight;
 }
 
 /* ── 5. YERTHY PHOTO PARALLAX ── */
