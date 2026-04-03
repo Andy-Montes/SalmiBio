@@ -284,12 +284,20 @@ details[open] .faq-arrow{transform:rotate(45deg);}
   color:var(--tq);opacity:.5;min-width:24px;flex-shrink:0;}
 
 /* ══ CHATBOT ASISTENTE BIO ══ */
+@keyframes bio-ping{0%{transform:scale(1);opacity:.6;}100%{transform:scale(1.75);opacity:0;}}
+@keyframes bio-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
 #bio-btn{position:fixed;bottom:90px;right:20px;z-index:480;
-  width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;
+  width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;
   background:linear-gradient(135deg,var(--lilaD),var(--tq));
   color:#fff;font-size:1.15rem;box-shadow:0 6px 22px rgba(168,85,200,.45);
-  transition:transform .2s,box-shadow .2s;}
-#bio-btn:hover{transform:scale(1.1);box-shadow:0 10px 30px rgba(168,85,200,.55);}
+  transition:transform .2s,box-shadow .2s;
+  animation:bio-float 3s ease-in-out infinite;
+  display:flex;align-items:center;justify-content:center;}
+#bio-btn::before{content:'';position:absolute;inset:0;border-radius:50%;
+  background:linear-gradient(135deg,var(--lilaD),var(--tq));opacity:.5;
+  animation:bio-ping 2s ease-out infinite;}
+#bio-btn:hover{transform:scale(1.1);box-shadow:0 10px 30px rgba(168,85,200,.55);animation:none;}
+#bio-btn.open{animation:none;}
 #bio-chat{position:fixed;bottom:152px;right:20px;z-index:480;
   width:315px;background:#fff;border-radius:18px;
   box-shadow:0 16px 48px rgba(0,0,0,.2);display:none;
@@ -1194,7 +1202,14 @@ details[open] .faq-arrow{transform:rotate(45deg);}
     Quiero hablar con Titi
   </a>
 </div>
-<button id="bio-btn" onclick="toggleChat()" aria-label="Asistente Bio">✦</button>
+<button id="bio-btn" onclick="toggleChat()" aria-label="Asistente Bio">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    <circle cx="9" cy="10" r=".8" fill="currentColor" stroke="none"/>
+    <circle cx="12" cy="10" r=".8" fill="currentColor" stroke="none"/>
+    <circle cx="15" cy="10" r=".8" fill="currentColor" stroke="none"/>
+  </svg>
+</button>
 
 <script>
 /* ── INJECT IMAGES ── */
@@ -1520,6 +1535,7 @@ let chatOpen = false;
 function toggleChat() {
   chatOpen = !chatOpen;
   document.getElementById('bio-chat').classList.toggle('open', chatOpen);
+  document.getElementById('bio-btn').classList.toggle('open', chatOpen);
 }
 function bioAsk(i) {
   const msgs = document.getElementById('bio-messages');
