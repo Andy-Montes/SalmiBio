@@ -90,11 +90,15 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 
 /* DANCER: right 52%, white bg = seamless integration */
 .h-dancer{position:absolute;right:0;top:0;width:52%;height:100%;
-          pointer-events:none;z-index:1;}
+          pointer-events:none;z-index:1;
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,black 22%,black 82%,transparent 100%),
+                     linear-gradient(to bottom,transparent 0%,black 12%,black 82%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to right,transparent 0%,black 22%,black 82%,transparent 100%),
+             linear-gradient(to bottom,transparent 0%,black 12%,black 82%,transparent 100%);
+  mask-composite:intersect;}
 .h-dancer img{width:100%;height:100%;object-fit:contain;
-              object-position:right center;display:block;}
-.h-dancer::before{content:'';position:absolute;left:0;top:0;bottom:0;width:10%;z-index:2;
-  background:linear-gradient(to right,#cfc8f2,transparent);}
+              object-position:right center;display:block;opacity:.85;}
 
 /* NUMBERS: right side over dancer photo, multiply blend = visible on white */
 .fn{position:absolute;font-family:'Playfair Display',serif;font-weight:700;
@@ -265,7 +269,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 .y-quote::before{content:'"';font-family:'Playfair Display',serif;font-size:5.5rem;
                  color:var(--tq);opacity:.22;position:absolute;top:-10px;left:14px;line-height:1;}
 .y-quote p{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;
-           color:var(--lilaB);line-height:1.7;position:relative;z-index:1;padding-left:6px;}
+           color:#4a2870;line-height:1.7;position:relative;z-index:1;padding-left:6px;}
 
 /* ══ FAQ ══ */
 #sfaq{background:linear-gradient(145deg,#2e1050 0%,#0f3030 55%,#3a1264 100%);
@@ -618,6 +622,7 @@ details[open] .faq-arrow{transform:rotate(45deg);}
   .h-text{text-align:center;}
   .h-note{justify-content:center;}
   .h-countdown{justify-content:center;}
+  #sfaq{height:auto;min-height:auto;overflow-y:visible;padding:48px 0;}
 }
 
 /* ══ FIXED SITE HEADER ══ */
@@ -721,7 +726,7 @@ details[open] .faq-arrow{transform:rotate(45deg);}
   <a onclick="goMobile('s3')">Módulos</a>
   <a onclick="goMobile('s4')">Instructora</a>
   <a onclick="goMobile('sfaq')">FAQ</a>
-  <a onclick="goMobile('s5')">Inscripción</a>
+  <a onclick="goMobile('s5')">Precios</a>
 </div>
 
 <div id="sc">
@@ -1022,7 +1027,6 @@ details[open] .faq-arrow{transform:rotate(45deg);}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           Inscríbete ahora
         </button>
-        <p style="font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:9px;text-align:center;">o elige tu método de pago</p>
         <div class="pay-stack">
           <div class="pay-row" onclick="openM('transfer')">
             <div class="pay-left">
@@ -1058,7 +1062,7 @@ details[open] .faq-arrow{transform:rotate(45deg);}
           <span class="price-usd" style="font-size:1.1rem;font-weight:600;color:var(--lilaB);">&nbsp;·&nbsp; $220 USD</span>
           <span class="price-note" style="width:100%;margin-top:2px;">Hasta en 6 cuotas <span style="color:var(--lilaD);">(Mercado Pago)</span></span>
         </div>
-        <div class="ae-indicator">Si ya estás inscrito · <strong>paga aquí ↑</strong></div>
+        <div class="ae-indicator">Si ya estás inscrita · <strong>paga aquí <span style="font-size:1.2em;vertical-align:middle;">⬆</span></strong></div>
         <div class="cta-box" style="margin-top:14px;">
           <p style="font-size:.78rem;color:var(--mt);margin-bottom:10px;">¿Dudas o necesitas más info? Escríbeme:</p>
           <p style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;">
@@ -1125,7 +1129,15 @@ details[open] .faq-arrow{transform:rotate(45deg);}
     <div class="footer-bar r d3">
       <div class="f-logo"><img id="img-f-escuela" src="" alt="Escuela"/></div>
       <p class="f-copy">© 2026 Escuela Descodificación Bio-Transgeneracional · Todos los derechos reservados</p>
-      <a href="https://instagram.com/yerthybio" class="f-ig" target="_blank">@yerthybio</a>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;">
+        <a href="https://instagram.com/yerthybio" class="f-ig" target="_blank">@yerthybio</a>
+        <span id="visit-badge" style="display:inline-flex;align-items:center;gap:5px;font-size:.62rem;
+          color:var(--mt);background:rgba(59,191,191,.06);border:1px solid rgba(59,191,191,.2);
+          border-radius:100px;padding:4px 10px;display:none;">
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="var(--tq)"><circle cx="4" cy="4" r="4"/></svg>
+          <span id="visit-count">0</span> visitas
+        </span>
+      </div>
     </div>
   </div>
 </section>
@@ -1655,6 +1667,21 @@ function bioAsk(i) {
   }, 380);
   msgs.scrollTop = msgs.scrollHeight;
 }
+
+/* ── CONTADOR DE VISITAS ── */
+(function(){
+  const badge = document.getElementById('visit-badge');
+  const count = document.getElementById('visit-count');
+  fetch('https://api.counterapi.dev/v1/salmibio-bio22/visits/up')
+    .then(r => r.json())
+    .then(d => {
+      if (d && d.count) {
+        count.textContent = Number(d.count).toLocaleString('es-CL');
+        badge.style.display = 'inline-flex';
+      }
+    })
+    .catch(() => {});
+})();
 
 /* ── 5. YERTHY PHOTO PARALLAX ── */
 sc.addEventListener('scroll', () => {
