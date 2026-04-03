@@ -248,11 +248,29 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
       font-size:.84rem;font-weight:600;text-decoration:none;margin-bottom:20px;transition:color .2s;}
 .y-ig:hover{color:var(--lilaD);}
 .y-quote{background:rgba(59,191,191,.08);border:1px solid rgba(59,191,191,.2);
-         border-radius:14px;padding:22px 26px;position:relative;}
-.y-quote::before{content:'"';font-family:'Playfair Display',serif;font-size:4rem;
-                 color:var(--tq);opacity:.22;position:absolute;top:-5px;left:12px;line-height:1;}
-.y-quote p{font-family:'Playfair Display',serif;font-style:italic;font-size:.94rem;
-           color:var(--lilaB);line-height:1.65;position:relative;z-index:1;padding-left:6px;}
+         border-radius:14px;padding:28px 30px 24px;position:relative;}
+.y-quote::before{content:'"';font-family:'Playfair Display',serif;font-size:5.5rem;
+                 color:var(--tq);opacity:.22;position:absolute;top:-10px;left:14px;line-height:1;}
+.y-quote p{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;
+           color:var(--lilaB);line-height:1.7;position:relative;z-index:1;padding-left:6px;}
+
+/* ══ FAQ ══ */
+#sfaq{background:linear-gradient(145deg,#16112a 0%,#1e1535 60%,#131d28 100%);}
+#sfaq .tag{color:var(--tqL);}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;margin-top:22px;}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.1);}
+.faq-item summary{list-style:none;cursor:pointer;padding:15px 0;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-q{font-size:.85rem;font-weight:700;color:#fff;line-height:1.35;flex:1;}
+.faq-a{font-size:.79rem;font-weight:300;color:rgba(255,255,255,.68);
+  line-height:1.85;padding-bottom:16px;}
+.faq-arrow{flex-shrink:0;color:var(--tq);transition:transform .3s ease;}
+details[open] .faq-arrow{transform:rotate(45deg);}
+.faq-num{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;
+  color:var(--tq);opacity:.55;min-width:28px;flex-shrink:0;}
+@media(max-width:860px){.faq-grid{grid-template-columns:1fr;}}
+@media(max-width:700px){.faq-grid{gap:0;}}
 
 /* ══════════════════════════════════
    §5 INSCRIPCIÓN
@@ -577,6 +595,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
   <button class="dot" data-id="s2" onclick="go('s2')"></button>
   <button class="dot" data-id="s3" onclick="go('s3')"></button>
   <button class="dot" data-id="s4" onclick="go('s4')"></button>
+  <button class="dot" data-id="sfaq" onclick="go('sfaq')"></button>
   <button class="dot" data-id="s5" onclick="go('s5')"></button>
 </nav>
 
@@ -587,6 +606,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
     <a onclick="go('s2')">El Curso</a>
     <a onclick="go('s3')">Módulos</a>
     <a onclick="go('s4')">Instructora</a>
+    <a onclick="go('sfaq')">FAQ</a>
     <a class="nav-cta" onclick="go('s5')">Inscripción</a>
   </nav>
 </header>
@@ -797,8 +817,75 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
         @yerthybio
       </a>
       <div class="y-quote r d4">
-        <p>"Los números son el lenguaje que usa el alma para hablarnos a través del cuerpo."</p>
+        <p>"Tu fecha de nacimiento no es solo una fecha… es tu programación, y descifrarla es volver a ti."</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ §FAQ ════════════ -->
+<section class="cf" id="sfaq">
+  <div class="wrap">
+    <div class="r" style="margin-bottom:6px;">
+      <span class="tag">Preguntas frecuentes</span>
+      <h2 class="h2" style="color:#fff;">Lo que más nos <span style="color:var(--tq);">preguntan</span></h2>
+    </div>
+    <div class="faq-grid">
+
+      <details class="faq-item sl">
+        <summary>
+          <span class="faq-num">01</span>
+          <span class="faq-q">¿Necesito conocimientos previos?</span>
+          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <p class="faq-a">No. El curso está diseñado desde cero para que cualquier persona pueda comprender e interpretar la Bionumerología. No necesitas saber matemática ni numerología. Cada clase te lleva paso a paso, con lenguaje claro, ejemplos reales y herramientas prácticas.</p>
+      </details>
+
+      <details class="faq-item sr">
+        <summary>
+          <span class="faq-num">02</span>
+          <span class="faq-q">¿Qué es la Carta BioNumerológica?</span>
+          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <p class="faq-a">Es un mapa vibracional y emocional que revela la estructura profunda del alma a través de los números de tu fecha de nacimiento. No solo dice quién eres, sino por qué fuiste programado para vivir ciertas experiencias.</p>
+      </details>
+
+      <details class="faq-item sl">
+        <summary>
+          <span class="faq-num">03</span>
+          <span class="faq-q">¿En qué se diferencia de la numerología tradicional?</span>
+          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <p class="faq-a">La Bionumerología Base 22 integra la biología, el inconsciente familiar y el campo energético. Trabaja con 22 frecuencias y 19 pilares que mapean tu biología emocional completa — mucho más profundo que un simple número de vida.</p>
+      </details>
+
+      <details class="faq-item sr">
+        <summary>
+          <span class="faq-num">04</span>
+          <span class="faq-q">¿Para qué sirve en mi vida diaria?</span>
+          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <p class="faq-a">Funciona como una guía de navegación interior. Te ayuda a identificar conflictos emocionales recurrentes, reconciliarte con tu historia familiar, comprender por qué atraes ciertos vínculos y tomar decisiones más coherentes con tu energía real.</p>
+      </details>
+
+      <details class="faq-item sl">
+        <summary>
+          <span class="faq-num">05</span>
+          <span class="faq-q">¿También sirve para entender mis relaciones?</span>
+          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <p class="faq-a">Sí. Cuando dos personas se relacionan, sus números entran en resonancia. La Carta revela los puntos de atracción y desafío, por qué ciertos vínculos repiten dinámicas, y qué viene a sanar cada relación — de pareja, familia o trabajo.</p>
+      </details>
+
+      <details class="faq-item sr">
+        <summary>
+          <span class="faq-num">06</span>
+          <span class="faq-q">¿Cómo me ayuda a tomar mejores decisiones?</span>
+          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <p class="faq-a">Te enseña a decidir desde tu vibración y no desde el miedo. Cada número tiene un modo natural de actuar y crear. Cuando aprendes a escuchar esa energía, eliges con más claridad y reconoces cuándo estás repitiendo un patrón heredado.</p>
+      </details>
+
     </div>
   </div>
 </section>
