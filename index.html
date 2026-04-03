@@ -108,6 +108,12 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 @keyframes fD{0%{transform:translate(0,20px);}33%{transform:translate(20px,-12px);}66%{transform:translate(-20px,-12px);}100%{transform:translate(0,20px);}}
 @keyframes fE{0%{transform:translate(18px,-18px);}25%{transform:translate(18px,18px);}50%{transform:translate(-18px,18px);}75%{transform:translate(-18px,-18px);}100%{transform:translate(18px,-18px);}}
 
+@keyframes heroGlow{0%,100%{opacity:.5;transform:scale(1) translate(0,0);}
+  50%{opacity:.85;transform:scale(1.12) translate(16px,-10px);}}
+.hero-glow{position:absolute;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(59,191,191,.16) 0%,rgba(168,85,200,.08) 40%,transparent 70%);
+  left:2%;top:5%;pointer-events:none;z-index:1;
+  animation:heroGlow 6s ease-in-out infinite;}
 .h-wm{position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:0;
       font-family:'Playfair Display',serif;font-weight:700;
       font-size:min(40vw,460px);color:rgba(59,191,191,.05);
@@ -148,15 +154,22 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 .lc:nth-child(4){background:linear-gradient(135deg,#8030a0 0%,#7B6FB5 100%);}
 .lc:nth-child(5){background:linear-gradient(135deg,#0a6060 0%,#3BBFBF 100%);}
 .lc:nth-child(6){background:linear-gradient(135deg,#503090 0%,#A855C8 100%);}
+.lc{position:relative;overflow:hidden;}
+.lc::after{content:'';position:absolute;top:-50%;left:-80%;width:50%;height:200%;
+  background:linear-gradient(to right,transparent,rgba(255,255,255,.22),transparent);
+  transform:skewX(-18deg);pointer-events:none;transition:none;}
 .lc:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,.2);}
+.lc:hover::after{left:150%;transition:left .55s ease;}
 .lc-n{font-size:.58rem;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:1px;margin-bottom:4px;}
 .lc h4{font-size:.9rem;font-weight:700;line-height:1.25;margin-bottom:3px;color:#fff;}
 .lc p{font-size:.74rem;font-weight:300;line-height:1.6;color:rgba(255,255,255,.85);}
 
 .pq-section{border-left:2px solid var(--tqL);padding-left:20px;margin-top:12px;}
 .pq-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;
-         border-bottom:1px solid rgba(59,191,191,.1);}
+         border-bottom:1px solid rgba(59,191,191,.1);
+         transition:transform .22s ease,background .22s ease;border-radius:0;}
 .pq-item:last-child{border-bottom:none;}
+.pq-item:hover{background:rgba(59,191,191,.07);border-radius:7px;transform:translateX(5px);}
 .pq-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px;background:var(--tq);}
 .pq-item p{font-size:.9rem;font-weight:300;line-height:1.55;color:var(--body);}
 
@@ -277,7 +290,8 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 .faq-item summary::-webkit-details-marker{display:none;}
 .faq-q{font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);line-height:1.35;flex:1;}
 .faq-a{font-size:.77rem;font-weight:400;color:rgba(255,255,255,.88);
-  line-height:1.85;padding-bottom:14px;padding-left:28px;}
+  line-height:1.85;padding-bottom:14px;padding-left:28px;
+  overflow:hidden;transition:max-height .34s ease,opacity .28s ease;}
 .faq-arrow{flex-shrink:0;color:var(--tq);transition:transform .3s ease;}
 details[open] .faq-arrow{transform:rotate(45deg);}
 .faq-num{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;
@@ -627,6 +641,11 @@ details[open] .faq-arrow{transform:rotate(45deg);}
   box-shadow:0 4px 14px rgba(59,191,191,.3);
 }
 .nav-cta:hover{opacity:.88;}
+.site-nav a.active{color:var(--tq);}
+.site-nav a.active:not(.nav-cta)::after{content:'';display:block;height:2px;
+  background:linear-gradient(to right,var(--tq),var(--lilaB));border-radius:1px;
+  animation:navUnderline .3s ease;}
+@keyframes navUnderline{from{transform:scaleX(0);}to{transform:scaleX(1);}}
 
 /* §4 YERTHY — inline flex layout */
 .y4-wrap{display:flex;align-items:center;gap:52px;}
@@ -640,9 +659,30 @@ details[open] .faq-arrow{transform:rotate(45deg);}
   .y4-photo img{width:220px;height:280px;}
   .y4-wrap{gap:28px;}
 }
+@keyframes mobileNavIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:none;}}
+#hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;
+  flex-direction:column;gap:5px;align-items:center;justify-content:center;}
+.hb-line{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;
+  transition:transform .28s ease,opacity .28s ease;}
+#hamburger.open .hb-line:nth-child(1){transform:translateY(7px) rotate(45deg);}
+#hamburger.open .hb-line:nth-child(2){opacity:0;}
+#hamburger.open .hb-line:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+#mobile-nav{display:none;position:fixed;top:70px;left:0;right:0;z-index:590;
+  background:#fff;box-shadow:0 8px 24px rgba(59,191,191,.15);
+  flex-direction:column;padding:10px 20px 16px;}
+#mobile-nav.open{display:flex;animation:mobileNavIn .22s ease;}
+#mobile-nav a{padding:13px 0;font-size:.72rem;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;cursor:pointer;
+  border:none;border-bottom:1px solid rgba(59,191,191,.1);
+  background:none;font-family:'Montserrat',sans-serif;}
+#mobile-nav a:last-child{border-bottom:none;margin-top:6px;text-align:center;
+  display:block;padding:13px;border-radius:100px;
+  background:linear-gradient(135deg,var(--tq),var(--lilaB));color:#fff;}
+#mobile-nav a.active{color:var(--tq);}
 @media(max-width:700px){
   #site-header{padding:0 20px;}
   .site-nav{display:none;}
+  #hamburger{display:flex;}
 }
 
 </style>
@@ -669,7 +709,20 @@ details[open] .faq-arrow{transform:rotate(45deg);}
     <a onclick="go('sfaq')">FAQ</a>
     <a class="nav-cta" onclick="go('s5')">Inscripción</a>
   </nav>
+  <button id="hamburger" onclick="toggleMobileNav()" aria-label="Menú">
+    <span class="hb-line"></span>
+    <span class="hb-line"></span>
+    <span class="hb-line"></span>
+  </button>
 </header>
+<div id="mobile-nav">
+  <a onclick="goMobile('s1')">Inicio</a>
+  <a onclick="goMobile('s2')">El Curso</a>
+  <a onclick="goMobile('s3')">Módulos</a>
+  <a onclick="goMobile('s4')">Instructora</a>
+  <a onclick="goMobile('sfaq')">FAQ</a>
+  <a onclick="goMobile('s5')">Inscripción</a>
+</div>
 
 <div id="sc">
 
@@ -690,6 +743,8 @@ details[open] .faq-arrow{transform:rotate(45deg);}
     </svg>
   </div>
 
+  <!-- animated glow -->
+  <div class="hero-glow"></div>
   <!-- big 22 bg -->
   <div class="h-wm">22</div>
 
@@ -1241,6 +1296,25 @@ setTimeout(() => {
   }
 }, 200);
 
+/* ── MOBILE NAV ── */
+function toggleMobileNav() {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+function goMobile(id) {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobile-nav').classList.remove('open');
+  go(id);
+}
+
+/* ── NAV ACTIVO ── */
+function setActiveNav(id) {
+  document.querySelectorAll('.site-nav a, #mobile-nav a').forEach(a => {
+    const fn = a.getAttribute('onclick') || '';
+    a.classList.toggle('active', fn.includes("'"+id+"'"));
+  });
+}
+
 const isMobileLayout = () => getComputedStyle(sc).position !== 'fixed';
 document.querySelectorAll('.ch, .cf').forEach(c => {
   const root = isMobileLayout() ? null : sc;
@@ -1248,12 +1322,40 @@ document.querySelectorAll('.ch, .cf').forEach(c => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add('vis');
+        setActiveNav(e.target.id);
         document.querySelectorAll('.dot').forEach(d =>
           d.classList.toggle('on', d.dataset.id === e.target.id)
         );
       }
     });
   }, { root, threshold: 0.15 }).observe(c);
+});
+
+/* ── FAQ SMOOTH EXPAND ── */
+document.querySelectorAll('.faq-item').forEach(det => {
+  const ans = det.querySelector('.faq-a');
+  if (!ans) return;
+  det.addEventListener('click', e => {
+    if (!e.target.closest('summary')) return;
+    e.preventDefault();
+    if (det.open) {
+      ans.style.maxHeight = ans.scrollHeight + 'px';
+      ans.style.opacity = '1';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        ans.style.maxHeight = '0';
+        ans.style.opacity = '0';
+      }));
+      setTimeout(() => det.removeAttribute('open'), 340);
+    } else {
+      det.setAttribute('open', '');
+      ans.style.maxHeight = '0';
+      ans.style.opacity = '0';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+        ans.style.opacity = '1';
+      }));
+    }
+  });
 });
 
 function go(id) {
