@@ -265,13 +265,12 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 .faq-art img{width:100%;height:100%;object-fit:cover;opacity:.18;}
 .faq-art::after{content:'';position:absolute;inset:0;
   background:linear-gradient(to left,transparent 0%,#1a0830 65%);}
-.faq-block{margin-bottom:22px;}
-.faq-block-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;
-  color:#fff;margin-bottom:8px;padding-bottom:8px;
-  border-bottom:1px solid rgba(59,191,191,.3);
-  display:flex;align-items:center;gap:10px;}
-.faq-block-title::before{content:'';display:inline-block;width:18px;height:2px;flex-shrink:0;
-  background:linear-gradient(to right,var(--tq),var(--lilaD));}
+.faq-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:16px;}
+.faq-block{border-top:2px solid rgba(59,191,191,.35);padding-top:14px;}
+.faq-block-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;
+  color:#fff;margin-bottom:10px;line-height:1.25;}
+@media(max-width:900px){.faq-cols{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.faq-cols{grid-template-columns:1fr;}}
 .faq-item{border-bottom:1px solid rgba(255,255,255,.07);}
 .faq-item summary{list-style:none;cursor:pointer;padding:13px 0;
   display:flex;align-items:center;gap:12px;}
@@ -885,6 +884,7 @@ details[open] .faq-arrow{transform:rotate(45deg);}
       <h2 class="h2" style="color:#fff;">Preguntas <span style="color:var(--tq);">frecuentes</span></h2>
     </div>
 
+    <div class="faq-cols">
     <!-- BLOQUE 1 -->
     <div class="faq-block r d1">
       <h3 class="faq-block-title">El mapa de tu alma</h3>
@@ -926,6 +926,7 @@ details[open] .faq-arrow{transform:rotate(45deg);}
       <details class="faq-item"><summary><span class="faq-num">26</span><span class="faq-q">¿Cómo puede la Bionumerología ayudarme a tomar decisiones más alineadas?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">La Bionumerología te enseña a decidir desde tu vibración y no desde el miedo.</p></details>
       <details class="faq-item"><summary><span class="faq-num">27</span><span class="faq-q">¿Qué te permite hacer cuando aprendes a escuchar tu energía?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Te permite elegir el momento adecuado para iniciar algo, entender si una oportunidad está alineada con tu propósito y reconocer cuándo estás repitiendo un patrón familiar o tomando decisiones desde una herida.</p></details>
     </div>
+    </div><!-- /faq-cols -->
 
   </div>
 </section>
