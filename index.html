@@ -89,7 +89,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 }
 
 /* DANCER: right 52%, white bg = seamless integration */
-.h-dancer{position:absolute;right:0;top:0;width:52%;height:100%;
+.h-dancer{position:absolute;right:0;top:0;width:44%;height:100%;
           pointer-events:none;z-index:1;
   -webkit-mask-image:linear-gradient(to right,transparent 0%,black 22%,black 82%,transparent 100%),
                      linear-gradient(to bottom,transparent 0%,black 12%,black 82%,transparent 100%);
@@ -118,7 +118,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
   background-size:200% auto;
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:transparent;
-  animation:shimmerText 4s linear infinite;
+  animation:shimmerText 9s linear infinite;
   display:inline-block;}
 @keyframes underlineGrow{from{width:0;}to{width:100%;}}
 .h-highlight{position:relative;display:inline-block;}
@@ -136,7 +136,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
       font-size:min(40vw,460px);color:rgba(59,191,191,.05);
       user-select:none;pointer-events:none;line-height:1;}
 
-.h-text{position:relative;z-index:6;max-width:510px;padding-top:52px;}
+.h-text{position:relative;z-index:6;max-width:580px;padding-top:52px;}
 .h-pills{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0 24px;}
 .h-note{font-size:.88rem;font-weight:700;color:rgba(255,255,255,.92);margin-top:14px;
         letter-spacing:2.5px;text-shadow:0 1px 10px rgba(80,40,120,.5);
@@ -1165,9 +1165,9 @@ details[open] .faq-arrow{transform:rotate(45deg);}
       <p class="f-copy">© 2026 Escuela Descodificación Bio-Transgeneracional · Todos los derechos reservados</p>
       <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;">
         <a href="https://instagram.com/yerthybio" class="f-ig" target="_blank">@yerthybio</a>
-        <span id="visit-badge" style="display:inline-flex;align-items:center;gap:5px;font-size:.62rem;
+        <span id="visit-badge" style="display:none;align-items:center;gap:5px;font-size:.62rem;
           color:var(--mt);background:rgba(59,191,191,.06);border:1px solid rgba(59,191,191,.2);
-          border-radius:100px;padding:4px 10px;display:none;">
+          border-radius:100px;padding:4px 10px;">
           <svg width="8" height="8" viewBox="0 0 8 8" fill="var(--tq)"><circle cx="4" cy="4" r="4"/></svg>
           <span id="visit-count">0</span> visitas
         </span>
@@ -1707,10 +1707,17 @@ function bioAsk(i) {
   const sfaq = document.getElementById('sfaq');
   const indicator = document.getElementById('faq-next');
   if (!sfaq) return;
+  let autoTimer = null;
   sfaq.addEventListener('scroll', () => {
-    const atBottom = sfaq.scrollTop + sfaq.clientHeight >= sfaq.scrollHeight - 30;
+    const atBottom = sfaq.scrollTop + sfaq.clientHeight >= sfaq.scrollHeight - 40;
     if (atBottom) {
       if (indicator) indicator.style.opacity = '1';
+      if (!autoTimer) {
+        autoTimer = setTimeout(() => { go('s5'); }, 1200);
+      }
+    } else {
+      if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; }
+      if (indicator) indicator.style.opacity = '0';
     }
   }, { passive: true });
 })();
@@ -1718,13 +1725,25 @@ function bioAsk(i) {
 /* ── CONTADOR DE VISITAS ── */
 (function(){
   const badge = document.getElementById('visit-badge');
-  const count = document.getElementById('visit-count');
+  const countEl = document.getElementById('visit-count');
+  if (!badge || !countEl) return;
+
+  // Incrementar y leer localStorage
+  const KEY = 'sb_visits';
+  const local = (parseInt(localStorage.getItem(KEY) || '0') || 0) + 1;
+  localStorage.setItem(KEY, local);
+
+  // Mostrar siempre con el valor local como base
+  countEl.textContent = local.toLocaleString('es-CL');
+  badge.style.display = 'inline-flex';
+
+  // Intentar actualizar con contador real (servidor)
   fetch('https://api.counterapi.dev/v1/salmibio-bio22/visits/up')
-    .then(r => r.json())
+    .then(r => r.ok ? r.json() : null)
     .then(d => {
-      if (d && d.count) {
-        count.textContent = Number(d.count).toLocaleString('es-CL');
-        badge.style.display = 'inline-flex';
+      const serverCount = d && (d.count || d.value);
+      if (serverCount && serverCount > local) {
+        countEl.textContent = Number(serverCount).toLocaleString('es-CL');
       }
     })
     .catch(() => {});
