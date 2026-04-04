@@ -310,12 +310,18 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
   background:radial-gradient(ellipse at 80% 10%,rgba(255,255,255,.15) 0%,transparent 55%);
   pointer-events:none;
 }
+.s5-faq::after{
+  content:'?';position:absolute;right:-10px;bottom:-30px;
+  font-family:'Playfair Display',serif;font-size:18rem;font-weight:700;
+  color:rgba(255,255,255,.07);line-height:1;pointer-events:none;
+  user-select:none;z-index:0;
+}
 .s5-faq-header{display:flex;align-items:baseline;justify-content:space-between;
-  margin-bottom:18px;position:relative;}
+  margin-bottom:18px;position:relative;z-index:1;}
 .s5-faq-header h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;
   color:#fff;line-height:1.2;margin:0;}
 .s5-faq-header h3 span{color:var(--tqL);}
-.faq-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;position:relative;}
+.faq-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;position:relative;z-index:1;}
 .faq-block{background:rgba(255,255,255,.07);border-radius:12px;padding:13px 14px;
   border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(4px);
   transition:background .2s;}
