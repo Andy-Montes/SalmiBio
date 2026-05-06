@@ -73,8 +73,9 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
    Numbers: ONLY right half, high opacity, overlay blend
 ══════════════════════════════════ */
 #s1{background:linear-gradient(to right,
-    #8ecece 0%,#b5a8e2 44%,#cfc8f2 49%,
-    #ffffff 49%,#ffffff 100%);}
+    #8ecece 0%,#b5a8e2 40%,#cfc8f2 52%,
+    #ece8f8 63%,#f5f3fb 72%,
+    #ffffff 82%,#ffffff 100%);}
 
 .hero-logo-wrap{display:none;}
 /* mix-blend-mode:multiply on WHITE or LIGHT bg = black pixels become transparent */
@@ -89,12 +90,17 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 }
 
 /* DANCER: right 52%, white bg = seamless integration */
-.h-dancer{position:absolute;right:0;top:0;width:52%;height:100%;
-          pointer-events:none;z-index:1;}
+.h-dancer{position:absolute;right:0;top:0;width:45%;height:100%;
+          pointer-events:none;z-index:1;
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,black 22%,black 82%,transparent 100%),
+                     linear-gradient(to bottom,transparent 0%,black 12%,black 82%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to right,transparent 0%,black 22%,black 82%,transparent 100%),
+             linear-gradient(to bottom,transparent 0%,black 12%,black 82%,transparent 100%);
+  mask-composite:intersect;}
 .h-dancer img{width:100%;height:100%;object-fit:contain;
-              object-position:right center;display:block;}
-.h-dancer::before{content:'';position:absolute;left:0;top:0;bottom:0;width:10%;z-index:2;
-  background:linear-gradient(to right,#cfc8f2,transparent);}
+              object-position:center center;display:block;opacity:.92;
+              mix-blend-mode:multiply;}
 
 /* NUMBERS: right side over dancer photo, multiply blend = visible on white */
 .fn{position:absolute;font-family:'Playfair Display',serif;font-weight:700;
@@ -108,12 +114,31 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 @keyframes fD{0%{transform:translate(0,20px);}33%{transform:translate(20px,-12px);}66%{transform:translate(-20px,-12px);}100%{transform:translate(0,20px);}}
 @keyframes fE{0%{transform:translate(18px,-18px);}25%{transform:translate(18px,18px);}50%{transform:translate(-18px,18px);}75%{transform:translate(-18px,-18px);}100%{transform:translate(18px,-18px);}}
 
+@keyframes shimmerText{0%{background-position:200% center;}100%{background-position:-200% center;}}
+.bio-shimmer{
+  background:linear-gradient(90deg,#3BBFBF 0%,#A855C8 30%,#d4f5f2 50%,#A855C8 70%,#3BBFBF 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:shimmerText 9s linear infinite;
+  display:inline-block;}
+@keyframes underlineGrow{from{width:0;}to{width:100%;}}
+.h-highlight{position:relative;display:inline-block;}
+.ch.vis .h-highlight::after{content:'';position:absolute;bottom:-2px;left:0;height:2px;
+  background:linear-gradient(to right,var(--tq),var(--lilaB));border-radius:1px;
+  animation:underlineGrow .6s ease .8s both;}
+@keyframes heroGlow{0%,100%{opacity:.5;transform:scale(1) translate(0,0);}
+  50%{opacity:.85;transform:scale(1.12) translate(16px,-10px);}}
+.hero-glow{position:absolute;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(59,191,191,.16) 0%,rgba(168,85,200,.08) 40%,transparent 70%);
+  left:2%;top:5%;pointer-events:none;z-index:1;
+  animation:heroGlow 6s ease-in-out infinite;}
 .h-wm{position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:0;
       font-family:'Playfair Display',serif;font-weight:700;
       font-size:min(40vw,460px);color:rgba(59,191,191,.05);
       user-select:none;pointer-events:none;line-height:1;}
 
-.h-text{position:relative;z-index:6;max-width:510px;padding-top:52px;}
+.h-text{position:relative;z-index:6;max-width:580px;padding-top:52px;padding-left:24px;}
 .h-pills{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0 24px;}
 .h-note{font-size:.88rem;font-weight:700;color:rgba(255,255,255,.92);margin-top:14px;
         letter-spacing:2.5px;text-shadow:0 1px 10px rgba(80,40,120,.5);
@@ -148,15 +173,23 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 .lc:nth-child(4){background:linear-gradient(135deg,#8030a0 0%,#7B6FB5 100%);}
 .lc:nth-child(5){background:linear-gradient(135deg,#0a6060 0%,#3BBFBF 100%);}
 .lc:nth-child(6){background:linear-gradient(135deg,#503090 0%,#A855C8 100%);}
+.lc{position:relative;overflow:hidden;}
+.lc::after{content:'';position:absolute;top:-50%;left:-80%;width:50%;height:200%;
+  background:linear-gradient(to right,transparent,rgba(255,255,255,.22),transparent);
+  transform:skewX(-18deg);pointer-events:none;transition:none;}
 .lc:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,.2);}
-.lc-n{font-size:.58rem;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:1px;margin-bottom:4px;}
+.lc:hover::after{left:150%;transition:left .55s ease;}
+.lc-n{font-size:.58rem;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:1px;margin-bottom:4px;transition:font-size .2s,color .2s;}
+.lc:hover .lc-n{font-size:.7rem;color:rgba(255,255,255,.9);}
 .lc h4{font-size:.9rem;font-weight:700;line-height:1.25;margin-bottom:3px;color:#fff;}
 .lc p{font-size:.74rem;font-weight:300;line-height:1.6;color:rgba(255,255,255,.85);}
 
 .pq-section{border-left:2px solid var(--tqL);padding-left:20px;margin-top:12px;}
 .pq-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;
-         border-bottom:1px solid rgba(59,191,191,.1);}
+         border-bottom:1px solid rgba(59,191,191,.1);
+         transition:transform .22s ease,background .22s ease;border-radius:0;}
 .pq-item:last-child{border-bottom:none;}
+.pq-item:hover{background:rgba(59,191,191,.07);border-radius:7px;transform:translateX(5px);}
 .pq-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px;background:var(--tq);}
 .pq-item p{font-size:.9rem;font-weight:300;line-height:1.55;color:var(--body);}
 
@@ -178,8 +211,9 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 .s3-item{display:grid;grid-template-columns:42px 1fr;gap:10px;align-items:start;
   padding-bottom:16px;border-bottom:1px solid rgba(59,191,191,.1);}
 .s3-item:last-child{border-bottom:none;padding-bottom:0;}
-.s3-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;
-  color:var(--tq);opacity:.65;line-height:1;padding-top:1px;}
+.s3-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;
+  color:var(--tq);opacity:.5;line-height:1;padding-top:1px;transition:opacity .22s;}
+.s3-item:hover .s3-num{opacity:.88;}
 .s3-item:nth-child(even) .s3-num{color:var(--lilaD);}
 .s3-item-title{font-family:'Playfair Display',serif;font-size:.96rem;font-weight:700;
   color:var(--ink);margin-bottom:5px;line-height:1.3;}
@@ -249,47 +283,92 @@ body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#fff;overfl
 .y-ig:hover{color:var(--lilaD);}
 .y-quote{background:rgba(59,191,191,.08);border:1px solid rgba(59,191,191,.2);
          border-radius:14px;padding:28px 30px 24px;position:relative;}
-.y-quote::before{content:'"';font-family:'Playfair Display',serif;font-size:5.5rem;
-                 color:var(--tq);opacity:.22;position:absolute;top:-10px;left:14px;line-height:1;}
-.y-quote p{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;
-           color:var(--lilaB);line-height:1.7;position:relative;z-index:1;padding-left:6px;}
+.y-quote::before{content:'"';font-family:'Playfair Display',serif;font-size:7rem;
+                 color:var(--tq);opacity:.3;position:absolute;top:-10px;left:14px;line-height:1;}
+.y-quote p{font-family:'Playfair Display',serif;font-style:italic;font-size:1.25rem;
+           color:#4a2870;line-height:1.75;position:relative;z-index:1;padding-left:6px;letter-spacing:.3px;}
 
-/* ══ FAQ ══ */
-#sfaq{background:linear-gradient(145deg,#2e1050 0%,#0f3030 55%,#3a1264 100%);
-  overflow-y:auto;height:calc(100vh - 70px);align-items:flex-start;
-  padding-top:36px;padding-bottom:36px;}
-#sfaq::-webkit-scrollbar{display:none;}
-#sfaq .tag{color:var(--tqL);}
-.faq-art{position:absolute;right:0;top:0;bottom:0;width:28%;
-  pointer-events:none;z-index:0;overflow:hidden;}
-.faq-art img{width:100%;height:100%;object-fit:cover;opacity:.18;}
-.faq-art::after{content:'';position:absolute;inset:0;
-  background:linear-gradient(to left,transparent 0%,#2e1050 65%);}
-.faq-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:16px;}
-.faq-block{border-top:2px solid rgba(59,191,191,.35);padding-top:14px;}
-.faq-block-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;
-  color:#fff;margin-bottom:10px;line-height:1.25;}
+/* ══ FAQ (dentro de §5) ══ */
+@keyframes faq-glow{
+  0%,100%{box-shadow:0 6px 28px rgba(123,111,181,.3);}
+  50%{box-shadow:0 6px 40px rgba(59,191,191,.4),0 0 0 3px rgba(123,111,181,.2);}
+}
+@keyframes faq-grad{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+.s5-faq{
+  margin-top:32px;padding:26px 24px 22px;border-radius:18px;
+  background:linear-gradient(135deg,#8030a0 0%,#7B6FB5 45%,#3BBFBF 100%);
+  background-size:220% 220%;
+  animation:faq-grad 7s ease infinite,faq-glow 3s ease-in-out infinite;
+  position:relative;overflow:hidden;
+}
+.s5-faq::before{
+  content:'';position:absolute;inset:0;border-radius:18px;
+  background:radial-gradient(ellipse at 80% 10%,rgba(255,255,255,.15) 0%,transparent 55%);
+  pointer-events:none;
+}
+.s5-faq::after{
+  content:'?';position:absolute;right:20px;top:50%;transform:translateY(-50%);
+  font-family:'Playfair Display',serif;font-size:10rem;font-weight:700;
+  color:rgba(255,255,255,.11);line-height:1;pointer-events:none;
+  user-select:none;z-index:0;
+}
+.s5-faq-header{display:flex;align-items:baseline;justify-content:space-between;
+  margin-bottom:18px;position:relative;z-index:1;}
+.s5-faq-header h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;
+  color:#fff;line-height:1.2;margin:0;}
+.s5-faq-header h3 span{color:var(--tqL);}
+.faq-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;position:relative;z-index:1;}
+.faq-block{background:rgba(255,255,255,.07);border-radius:12px;padding:13px 14px;
+  border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(4px);
+  transition:background .2s;}
+.faq-block:hover{background:rgba(255,255,255,.11);}
+.faq-block-summary{list-style:none;cursor:pointer;display:flex;align-items:center;
+  justify-content:space-between;gap:10px;user-select:none;}
+.faq-block-summary::-webkit-details-marker{display:none;}
+.faq-block-summary:hover .faq-block-title{color:var(--tqL);}
+.faq-block-title{font-family:'Playfair Display',serif;font-size:.88rem;font-weight:700;
+  color:#fff;margin:0;line-height:1.3;transition:color .2s;flex:1;}
+.faq-block-arrow{flex-shrink:0;color:var(--tq);transition:transform .3s ease;}
+details.faq-block[open]>.faq-block-summary .faq-block-arrow{transform:rotate(45deg);}
+details.faq-block[open]{background:rgba(255,255,255,.12);border-color:rgba(59,191,191,.35);}
+.faq-block-body{overflow:hidden;transition:max-height .34s ease,opacity .28s ease;padding-top:8px;}
 @media(max-width:900px){.faq-cols{grid-template-columns:1fr 1fr;}}
-@media(max-width:600px){.faq-cols{grid-template-columns:1fr;}}
+@media(max-width:600px){.faq-cols{grid-template-columns:1fr;}.s5-faq{padding:20px 14px;}}
 .faq-item{border-bottom:1px solid rgba(255,255,255,.07);}
-.faq-item summary{list-style:none;cursor:pointer;padding:13px 0;
-  display:flex;align-items:center;gap:12px;}
+.faq-item summary{list-style:none;cursor:pointer;padding:10px 0;
+  display:flex;align-items:center;gap:10px;}
 .faq-item summary::-webkit-details-marker{display:none;}
-.faq-q{font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);line-height:1.35;flex:1;}
-.faq-a{font-size:.77rem;font-weight:400;color:rgba(255,255,255,.88);
-  line-height:1.85;padding-bottom:14px;padding-left:28px;}
+.faq-q{font-size:.77rem;font-weight:600;color:rgba(255,255,255,.82);
+  line-height:1.35;flex:1;transition:color .2s;}
+.faq-item summary:hover .faq-q{color:#fff;}
+.faq-item summary:hover .faq-num{opacity:.8;}
+.faq-a{font-size:.73rem;color:rgba(255,255,255,.65);line-height:1.8;
+  padding-bottom:10px;padding-left:26px;
+  overflow:hidden;transition:max-height .34s ease,opacity .28s ease;}
 .faq-arrow{flex-shrink:0;color:var(--tq);transition:transform .3s ease;}
 details[open] .faq-arrow{transform:rotate(45deg);}
-.faq-num{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;
-  color:var(--tq);opacity:.5;min-width:24px;flex-shrink:0;}
+.faq-num{font-family:'Playfair Display',serif;font-size:.85rem;font-weight:700;
+  color:var(--tq);opacity:.5;min-width:22px;flex-shrink:0;}
 
 /* ══ CHATBOT ASISTENTE BIO ══ */
+@keyframes bio-ping{0%{transform:scale(1);opacity:.6;}100%{transform:scale(1.75);opacity:0;}}
+@keyframes bio-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
 #bio-btn{position:fixed;bottom:90px;right:20px;z-index:480;
-  width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;
+  width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;
   background:linear-gradient(135deg,var(--lilaD),var(--tq));
   color:#fff;font-size:1.15rem;box-shadow:0 6px 22px rgba(168,85,200,.45);
-  transition:transform .2s,box-shadow .2s;}
-#bio-btn:hover{transform:scale(1.1);box-shadow:0 10px 30px rgba(168,85,200,.55);}
+  transition:transform .2s,box-shadow .2s;
+  animation:bio-float 3s ease-in-out infinite;
+  display:flex;align-items:center;justify-content:center;}
+#bio-btn::before{content:'';position:absolute;inset:0;border-radius:50%;
+  background:linear-gradient(135deg,var(--lilaD),var(--tq));opacity:.5;
+  animation:bio-ping 2s ease-out infinite;}
+#bio-btn:hover{transform:scale(1.1);box-shadow:0 10px 30px rgba(168,85,200,.55);animation:none;}
+#bio-btn.open{animation:none;}
 #bio-chat{position:fixed;bottom:152px;right:20px;z-index:480;
   width:315px;background:#fff;border-radius:18px;
   box-shadow:0 16px 48px rgba(0,0,0,.2);display:none;
@@ -522,8 +601,9 @@ details[open] .faq-arrow{transform:rotate(45deg);}
   background:linear-gradient(135deg,var(--lilaD),var(--lilaB));
   box-shadow:0 8px 28px rgba(168,85,200,.45);
   animation:btnPulse 2.8s ease-in-out infinite;
+  padding:18px 52px;letter-spacing:2.5px;
 }
-.btn-hero:hover{box-shadow:0 14px 38px rgba(168,85,200,.55);}
+.btn-hero:hover{box-shadow:0 16px 44px rgba(168,85,200,.65);filter:brightness(1.08);}
 
 /* ── STICKY MOBILE CTA ── */
 #sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:550;
@@ -571,7 +651,11 @@ details[open] .faq-arrow{transform:rotate(45deg);}
   #sc{position:static;overflow:visible;scroll-snap-type:none;}
   .ch,.cf{scroll-snap-align:none;height:auto;min-height:auto;padding:48px 0;}
   #dots,.fn,.h-wm{display:none;}
-  .h-dancer{width:100%;opacity:0.28;}
+  .h-dancer{width:100%;opacity:0.35;mix-blend-mode:multiply;
+    -webkit-mask-image:radial-gradient(ellipse 62% 60% at 50% 38%,black 0%,rgba(0,0,0,.6) 45%,transparent 65%);
+    mask-image:radial-gradient(ellipse 62% 60% at 50% 38%,black 0%,rgba(0,0,0,.6) 45%,transparent 65%);
+    -webkit-mask-composite:unset;mask-composite:unset;}
+  .h-dancer img{object-fit:cover;mix-blend-mode:normal;}
   .h-text{padding-top:24px;}
   .s2-art{display:block;}
   .lg,.mod-grid{grid-template-columns:1fr;}
@@ -619,6 +703,11 @@ details[open] .faq-arrow{transform:rotate(45deg);}
   box-shadow:0 4px 14px rgba(59,191,191,.3);
 }
 .nav-cta:hover{opacity:.88;}
+.site-nav a.active{color:var(--tq);}
+.site-nav a.active:not(.nav-cta)::after{content:'';display:block;height:2px;
+  background:linear-gradient(to right,var(--tq),var(--lilaB));border-radius:1px;
+  animation:navUnderline .3s ease;}
+@keyframes navUnderline{from{transform:scaleX(0);}to{transform:scaleX(1);}}
 
 /* §4 YERTHY — inline flex layout */
 .y4-wrap{display:flex;align-items:center;gap:52px;}
@@ -632,9 +721,30 @@ details[open] .faq-arrow{transform:rotate(45deg);}
   .y4-photo img{width:220px;height:280px;}
   .y4-wrap{gap:28px;}
 }
+@keyframes mobileNavIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:none;}}
+#hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;
+  flex-direction:column;gap:5px;align-items:center;justify-content:center;}
+.hb-line{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;
+  transition:transform .28s ease,opacity .28s ease;}
+#hamburger.open .hb-line:nth-child(1){transform:translateY(7px) rotate(45deg);}
+#hamburger.open .hb-line:nth-child(2){opacity:0;}
+#hamburger.open .hb-line:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+#mobile-nav{display:none;position:fixed;top:70px;left:0;right:0;z-index:590;
+  background:#fff;box-shadow:0 8px 24px rgba(59,191,191,.15);
+  flex-direction:column;padding:10px 20px 16px;}
+#mobile-nav.open{display:flex;animation:mobileNavIn .22s ease;}
+#mobile-nav a{padding:13px 0;font-size:.72rem;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;cursor:pointer;
+  border:none;border-bottom:1px solid rgba(59,191,191,.1);
+  background:none;font-family:'Montserrat',sans-serif;}
+#mobile-nav a:last-child{border-bottom:none;margin-top:6px;text-align:center;
+  display:block;padding:13px;border-radius:100px;
+  background:linear-gradient(135deg,var(--tq),var(--lilaB));color:#fff;}
+#mobile-nav a.active{color:var(--tq);}
 @media(max-width:700px){
   #site-header{padding:0 20px;}
   .site-nav{display:none;}
+  #hamburger{display:flex;}
 }
 
 </style>
@@ -647,7 +757,6 @@ details[open] .faq-arrow{transform:rotate(45deg);}
   <button class="dot" data-id="s2" onclick="go('s2')"></button>
   <button class="dot" data-id="s3" onclick="go('s3')"></button>
   <button class="dot" data-id="s4" onclick="go('s4')"></button>
-  <button class="dot" data-id="sfaq" onclick="go('sfaq')"></button>
   <button class="dot" data-id="s5" onclick="go('s5')"></button>
 </nav>
 
@@ -658,10 +767,27 @@ details[open] .faq-arrow{transform:rotate(45deg);}
     <a onclick="go('s2')">El Curso</a>
     <a onclick="go('s3')">Módulos</a>
     <a onclick="go('s4')">Instructora</a>
-    <a onclick="go('sfaq')">FAQ</a>
     <a class="nav-cta" onclick="go('s5')">Inscripción</a>
   </nav>
+  <button id="hamburger" onclick="toggleMobileNav()" aria-label="Menú">
+    <span class="hb-line"></span>
+    <span class="hb-line"></span>
+    <span class="hb-line"></span>
+  </button>
 </header>
+<div id="mobile-nav">
+  <a onclick="goMobile('s1')">Inicio</a>
+  <a onclick="goMobile('s2')">El Curso</a>
+  <a onclick="goMobile('s3')">Módulos</a>
+  <a onclick="goMobile('s4')">Instructora</a>
+  <a onclick="goMobile('s5')">Precios</a>
+  <button onclick="goMobile('s5')" style="margin-top:8px;width:100%;padding:14px;border:none;border-radius:100px;
+    background:linear-gradient(135deg,var(--tq),var(--lilaB));color:#fff;
+    font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:700;
+    letter-spacing:2px;text-transform:uppercase;cursor:pointer;">
+    Inscríbete ahora →
+  </button>
+</div>
 
 <div id="sc">
 
@@ -682,6 +808,8 @@ details[open] .faq-arrow{transform:rotate(45deg);}
     </svg>
   </div>
 
+  <!-- animated glow -->
+  <div class="hero-glow"></div>
   <!-- big 22 bg -->
   <div class="h-wm">22</div>
 
@@ -701,15 +829,15 @@ details[open] .faq-arrow{transform:rotate(45deg);}
   <div class="wrap">
     <div class="h-text">
       <div class="r"><span class="badge-hot">✦ Nueva fecha · 6 Mayo 2026</span></div>
-      <h1 class="r d1" style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5.2vw,4.2rem);
-          font-weight:700;line-height:1.04;margin-top:14px;">
+      <h1 class="r d1" style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,4.8vw,3.8rem);
+          font-weight:700;line-height:1.04;margin-top:14px;word-break:break-word;max-width:460px;">
         <span style="color:var(--lilaB);">Curso</span><br/>
-        <span style="color:#d4f5f2;text-shadow:0 1px 10px rgba(20,60,70,.2);">Bionumerología</span><br/>
+        <span class="bio-shimmer">Bionumerología</span><br/>
         <span style="color:var(--lilaB);">Base 22</span>
       </h1>
       <p class="r d2" style="margin-top:10px;font-family:'Playfair Display',serif;font-style:italic;
          font-size:clamp(1rem,1.8vw,1.25rem);color:var(--ink);font-weight:400;line-height:1.5;">
-        Descubre quién eres a través de los números
+        Descubre <span class="h-highlight">quién eres</span> a través de los números
       </p>
       <div class="h-pills r d3">
         <span class="pill">
@@ -875,62 +1003,6 @@ details[open] .faq-arrow{transform:rotate(45deg);}
   </div>
 </section>
 
-<!-- ════════════ §FAQ ════════════ -->
-<section class="cf" id="sfaq">
-  <div class="faq-art"><img src="images/journal.jpg" alt=""/></div>
-  <div class="wrap" style="position:relative;z-index:2;">
-    <div class="r" style="margin-bottom:18px;">
-      <span class="tag">Preguntas frecuentes</span>
-      <h2 class="h2" style="color:#fff;">Preguntas <span style="color:var(--tq);">frecuentes</span></h2>
-    </div>
-
-    <div class="faq-cols">
-    <!-- BLOQUE 1 -->
-    <div class="faq-block r d1">
-      <h3 class="faq-block-title">El mapa de tu alma</h3>
-      <details class="faq-item"><summary><span class="faq-num">01</span><span class="faq-q">¿Qué es la Carta BioNumerológica?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">La Carta Numerológica —o Carta Bionumerológica Base 22— es un mapa vibracional y emocional que revela la estructura profunda del alma a través de los números presentes en la fecha de nacimiento.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">02</span><span class="faq-q">¿Qué representa cada número dentro de la Carta?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Cada número representa una frecuencia que codifica información sobre la personalidad, el propósito, las emociones, los aprendizajes y los programas inconscientes heredados del linaje familiar.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">03</span><span class="faq-q">¿En qué se diferencia de la numerología tradicional?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">A diferencia de la numerología tradicional, la Bionumerología Base 22 integra la biología, el inconsciente familiar y el campo energético.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">04</span><span class="faq-q">¿Qué permite comprender este enfoque?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Permite comprender no solo quién eres, sino también por qué fuiste programado para vivir ciertas experiencias.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">05</span><span class="faq-q">¿Para qué sirve la Carta BioNumerológica?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sirve como una herramienta de autoconocimiento profundo, que te ayuda a comprender tus reacciones, tus vínculos, tus crisis y tus dones, desde la lógica del alma.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">06</span><span class="faq-q">¿Cómo se calcula la Carta?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Su cálculo parte de la fecha de nacimiento completa, a partir de la cual se derivan 16 pilares principales.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">07</span><span class="faq-q">¿Qué revelan esos pilares?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Revelan distintos aspectos de tu biología emocional: desde tu Personalidad Profunda (PP) y tu Nudo Emocional (NE), hasta tu CIS, CES, PI, Máscara, BE, NR, entre otros.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">08</span><span class="faq-q">¿Cómo se obtiene cada pilar?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Cada pilar se obtiene mediante fórmulas específicas en Base 22, donde se reduce cada número de manera consciente, respetando las reglas de los números maestros (26/8, 33/6 y 40/4).</p></details>
-      <details class="faq-item"><summary><span class="faq-num">09</span><span class="faq-q">¿Qué muestra finalmente la Carta?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Muestra quién eres en esencia, cómo operas emocionalmente y hacia dónde te dirige tu propósito evolutivo.</p></details>
-    </div>
-
-    <!-- BLOQUE 2 -->
-    <div class="faq-block r d2">
-      <h3 class="faq-block-title">Cómo te transforma</h3>
-      <details class="faq-item"><summary><span class="faq-num">10</span><span class="faq-q">¿Cómo aplico la Carta en mi vida?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Tu Carta Numerológica es una guía de navegación que te ayuda a comprenderte con más profundidad y vivir con mayor coherencia.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">11</span><span class="faq-q">¿Qué puedo comprender cuando conozco mis números?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Puedes comprender tus reacciones, tus vínculos, tus crisis y tus dones desde una lógica más profunda y consciente.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">12</span><span class="faq-q">¿Qué me ayuda a identificar en mí?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Te ayuda a identificar los conflictos emocionales recurrentes y su raíz inconsciente.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">13</span><span class="faq-q">¿También sirve para comprender mi historia familiar?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Permite reconciliarte con tu historia familiar y comprender los mandatos transgeneracionales que te habitan.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">14</span><span class="faq-q">¿Puede ayudarme a tomar decisiones más conscientes?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Te ayuda a tomar decisiones más conscientes y alineadas con tu energía real.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">15</span><span class="faq-q">¿Me puede mostrar por qué atraigo ciertos vínculos o desafíos?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Puede ayudarte a comprender por qué atraes ciertos vínculos, proyectos o desafíos.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">16</span><span class="faq-q">¿También ayuda a potenciar mis dones y transformar patrones?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Permite potenciar tus dones y reconfigurar los patrones que te limitan.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">17</span><span class="faq-q">¿Qué significa aplicarla realmente?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Aplicarla es vivir en coherencia con tu vibración. Es aprender a leer tu historia en clave de conciencia y transformar el número en camino.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">18</span><span class="faq-q">¿Qué te permite hacer cuando aprendes a escuchar tu energía?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Te permite elegir el momento adecuado para iniciar algo, entender si una oportunidad está alineada con tu propósito y reconocer cuándo estás repitiendo un patrón familiar o tomando decisiones desde una herida.</p></details>
-    </div>
-
-    <!-- BLOQUE 3 -->
-    <div class="faq-block r d3">
-      <h3 class="faq-block-title">El curso y tus vínculos</h3>
-      <details class="faq-item"><summary><span class="faq-num">19</span><span class="faq-q">¿Yo no sé nada del tema, puedo igual tomar el curso?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí, absolutamente. El curso está diseñado desde cero, para que cualquier persona —sin conocimientos previos— pueda comprender, interpretar y aplicar la Bionumerología en su vida.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">20</span><span class="faq-q">¿Necesito saber matemática o numerología para aprender?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">No. No necesitas saber matemática ni numerología: solo tener deseo genuino de conocerte y sanar.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">21</span><span class="faq-q">¿Cómo está enseñado el curso?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Cada clase te lleva paso a paso, con lenguaje claro, ejemplos reales y herramientas prácticas.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">22</span><span class="faq-q">¿Desde qué enfoque está pensado el método?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">El método está pensado para acompañarte desde la emoción, no desde la teoría.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">23</span><span class="faq-q">¿Cómo influyen los números en nuestras relaciones?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Cada número vibra en una frecuencia determinada. Cuando dos personas se relacionan —ya sea pareja, familia, amistad o vínculo laboral— sus números entran en resonancia y crean una nueva vibración compartida.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">24</span><span class="faq-q">¿Qué permite comprender esto dentro de un vínculo?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Permite reconocer los puntos de atracción y desafío, comprender por qué ciertos vínculos repiten patrones y descubrir qué te espeja el otro.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">25</span><span class="faq-q">¿También muestra qué vienes a sanar a través de una relación?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Permite descubrir qué te espeja el otro y qué vienes a sanar a través de esa relación.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">26</span><span class="faq-q">¿Se pueden detectar relaciones kármicas o inevitables?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. En la Bionumerología Base 22, incluso se pueden detectar por qué ciertas relaciones parecen "inevitables" o profundamente kármicas.</p></details>
-      <details class="faq-item"><summary><span class="faq-num">27</span><span class="faq-q">¿Cómo puede la Bionumerología ayudarme a tomar decisiones más alineadas?</span><svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">La Bionumerología te enseña a decidir desde tu vibración y no desde el miedo.</p></details>
-    </div>
-    </div><!-- /faq-cols -->
-
-  </div>
-</section>
-
 <!-- ════════════ §5 INSCRIPCIÓN ════════════ -->
 <section class="cf" id="s5">
   <div class="blob" style="top:-30px;right:-20px;width:220px;height:205px;opacity:.14;">
@@ -955,11 +1027,15 @@ details[open] .faq-arrow{transform:rotate(45deg);}
     <div class="s5-grid">
       <!-- COL IZQUIERDA: acción -->
       <div class="r d1">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
+          <span class="price-big" style="font-size:clamp(1.7rem,2.8vw,2.4rem);">🇨🇱 $198.000</span>
+          <span class="price-usd" style="font-size:1.1rem;font-weight:600;color:var(--lilaB);">&nbsp;·&nbsp; $220 USD</span>
+          <span class="price-note" style="width:100%;margin-top:2px;">Hasta en 6 cuotas <span style="color:var(--lilaD);">(Mercado Pago)</span></span>
+        </div>
         <button onclick="openEnroll()" class="btn" style="width:100%;justify-content:center;margin-bottom:16px;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           Inscríbete ahora
         </button>
-        <p style="font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:9px;text-align:center;">o elige tu método de pago</p>
         <div class="pay-stack">
           <div class="pay-row" onclick="openM('transfer')">
             <div class="pay-left">
@@ -990,12 +1066,7 @@ details[open] .faq-arrow{transform:rotate(45deg);}
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
         </div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:14px;flex-wrap:wrap;">
-          <span class="price-big" style="font-size:clamp(1.4rem,2.4vw,2rem);">🇨🇱 $198.000</span>
-          <span class="price-usd" style="font-size:1.1rem;font-weight:600;color:var(--lilaB);">&nbsp;·&nbsp; $220 USD</span>
-          <span class="price-note" style="width:100%;margin-top:2px;">Hasta en 6 cuotas <span style="color:var(--lilaD);">(Mercado Pago)</span></span>
-        </div>
-        <div class="ae-indicator">Si ya estás inscrito · <strong>paga aquí ↑</strong></div>
+        <div class="ae-indicator">Si ya te inscribiste · <strong>paga aquí <span style="font-size:1.2em;vertical-align:middle;">⬆</span></strong></div>
         <div class="cta-box" style="margin-top:14px;">
           <p style="font-size:.78rem;color:var(--mt);margin-bottom:10px;">¿Dudas o necesitas más info? Escríbeme:</p>
           <p style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;">
@@ -1058,11 +1129,73 @@ details[open] .faq-arrow{transform:rotate(45deg);}
         </div>
       </div>
     </div>
+    <!-- FAQ integrado -->
+    <div class="s5-faq r d3">
+      <div class="s5-faq-header">
+        <h3>Preguntas <span>frecuentes</span></h3>
+      </div>
+      <div class="faq-cols">
+        <!-- BLOQUE 1 -->
+        <details class="faq-block">
+          <summary class="faq-block-summary"><h4 class="faq-block-title">El mapa de tu alma</h4><svg class="faq-block-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
+          <div class="faq-block-body">
+            <details class="faq-item"><summary><span class="faq-num">01</span><span class="faq-q">¿Qué es la Carta BioNumerológica?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">La Carta Numerológica —o Carta Bionumerológica Base 22— es un mapa vibracional y emocional que revela la estructura profunda del alma a través de los números presentes en la fecha de nacimiento.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">02</span><span class="faq-q">¿Qué representa cada número dentro de la Carta?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Cada número representa una frecuencia que codifica información sobre la personalidad, el propósito, las emociones, los aprendizajes y los programas inconscientes heredados del linaje familiar.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">03</span><span class="faq-q">¿En qué se diferencia de la numerología tradicional?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">A diferencia de la numerología tradicional, la Bionumerología Base 22 integra la biología, el inconsciente familiar y el campo energético.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">04</span><span class="faq-q">¿Qué permite comprender este enfoque?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Permite comprender no solo quién eres, sino también por qué fuiste programado para vivir ciertas experiencias.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">05</span><span class="faq-q">¿Para qué sirve la Carta BioNumerológica?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sirve como una herramienta de autoconocimiento profundo, que te ayuda a comprender tus reacciones, tus vínculos, tus crisis y tus dones, desde la lógica del alma.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">06</span><span class="faq-q">¿Cómo se calcula la Carta?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Su cálculo parte de la fecha de nacimiento completa, a partir de la cual se derivan 16 pilares principales.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">07</span><span class="faq-q">¿Qué revelan esos pilares?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Revelan distintos aspectos de tu biología emocional: desde tu Personalidad Profunda (PP) y tu Nudo Emocional (NE), hasta tu CIS, CES, PI, Máscara, BE, NR, entre otros.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">08</span><span class="faq-q">¿Cómo se obtiene cada pilar?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Cada pilar se obtiene mediante fórmulas específicas en Base 22, donde se reduce cada número de manera consciente, respetando las reglas de los números maestros (26/8, 33/6 y 40/4).</p></details>
+            <details class="faq-item"><summary><span class="faq-num">09</span><span class="faq-q">¿Qué muestra finalmente la Carta?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Muestra quién eres en esencia, cómo operas emocionalmente y hacia dónde te dirige tu propósito evolutivo.</p></details>
+          </div>
+        </details>
+        <!-- BLOQUE 2 -->
+        <details class="faq-block">
+          <summary class="faq-block-summary"><h4 class="faq-block-title">Cómo te transforma</h4><svg class="faq-block-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
+          <div class="faq-block-body">
+            <details class="faq-item"><summary><span class="faq-num">10</span><span class="faq-q">¿Cómo aplico la Carta en mi vida?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Tu Carta Numerológica es una guía de navegación que te ayuda a comprenderte con más profundidad y vivir con mayor coherencia.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">11</span><span class="faq-q">¿Qué puedo comprender cuando conozco mis números?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Puedes comprender tus reacciones, tus vínculos, tus crisis y tus dones desde una lógica más profunda y consciente.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">12</span><span class="faq-q">¿Qué me ayuda a identificar en mí?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Te ayuda a identificar los conflictos emocionales recurrentes y su raíz inconsciente.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">13</span><span class="faq-q">¿También sirve para comprender mi historia familiar?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Permite reconciliarte con tu historia familiar y comprender los mandatos transgeneracionales que te habitan.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">14</span><span class="faq-q">¿Puede ayudarme a tomar decisiones más conscientes?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Te ayuda a tomar decisiones más conscientes y alineadas con tu energía real.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">15</span><span class="faq-q">¿Me puede mostrar por qué atraigo ciertos vínculos o desafíos?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Puede ayudarte a comprender por qué atraes ciertos vínculos, proyectos o desafíos.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">16</span><span class="faq-q">¿También ayuda a potenciar mis dones y transformar patrones?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Permite potenciar tus dones y reconfigurar los patrones que te limitan.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">17</span><span class="faq-q">¿Qué significa aplicarla realmente?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Aplicarla es vivir en coherencia con tu vibración. Es aprender a leer tu historia en clave de conciencia y transformar el número en camino.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">18</span><span class="faq-q">¿Qué te permite hacer cuando aprendes a escuchar tu energía?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Te permite elegir el momento adecuado para iniciar algo, entender si una oportunidad está alineada con tu propósito y reconocer cuándo estás repitiendo un patrón familiar.</p></details>
+          </div>
+        </details>
+        <!-- BLOQUE 3 -->
+        <details class="faq-block">
+          <summary class="faq-block-summary"><h4 class="faq-block-title">El curso y tus vínculos</h4><svg class="faq-block-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
+          <div class="faq-block-body">
+            <details class="faq-item"><summary><span class="faq-num">19</span><span class="faq-q">¿Yo no sé nada del tema, puedo igual tomar el curso?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí, absolutamente. El curso está diseñado desde cero, para que cualquier persona —sin conocimientos previos— pueda comprender, interpretar y aplicar la Bionumerología en su vida.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">20</span><span class="faq-q">¿Necesito saber matemática o numerología para aprender?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">No. No necesitas saber matemática ni numerología: solo tener deseo genuino de conocerte y sanar.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">21</span><span class="faq-q">¿Cómo está enseñado el curso?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Cada clase te lleva paso a paso, con lenguaje claro, ejemplos reales y herramientas prácticas.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">22</span><span class="faq-q">¿Desde qué enfoque está pensado el método?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">El método está pensado para acompañarte desde la emoción, no desde la teoría.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">23</span><span class="faq-q">¿Cómo influyen los números en nuestras relaciones?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Cada número vibra en una frecuencia determinada. Cuando dos personas se relacionan, sus números entran en resonancia y crean una nueva vibración compartida.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">24</span><span class="faq-q">¿Qué permite comprender esto dentro de un vínculo?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Permite reconocer los puntos de atracción y desafío, comprender por qué ciertos vínculos repiten patrones y descubrir qué te espeja el otro.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">25</span><span class="faq-q">¿También muestra qué vienes a sanar a través de una relación?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. Permite descubrir qué te espeja el otro y qué vienes a sanar a través de esa relación.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">26</span><span class="faq-q">¿Se pueden detectar relaciones kármicas o inevitables?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">Sí. En la Bionumerología Base 22, incluso se pueden detectar por qué ciertas relaciones parecen "inevitables" o profundamente kármicas.</p></details>
+            <details class="faq-item"><summary><span class="faq-num">27</span><span class="faq-q">¿Cómo puede la Bionumerología ayudarme a tomar decisiones más alineadas?</span><svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><p class="faq-a">La Bionumerología te enseña a decidir desde tu vibración y no desde el miedo.</p></details>
+          </div>
+        </details>
+      </div>
+    </div>
+
     <!-- FOOTER: escuela logo 56px, transparent, multiply -->
     <div class="footer-bar r d3">
       <div class="f-logo"><img id="img-f-escuela" src="" alt="Escuela"/></div>
       <p class="f-copy">© 2026 Escuela Descodificación Bio-Transgeneracional · Todos los derechos reservados</p>
-      <a href="https://instagram.com/yerthybio" class="f-ig" target="_blank">@yerthybio</a>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;">
+        <a href="https://instagram.com/yerthybio" class="f-ig" target="_blank">@yerthybio</a>
+        <span id="visit-badge" style="display:none;align-items:center;gap:5px;font-size:.62rem;
+          color:var(--mt);background:rgba(59,191,191,.06);border:1px solid rgba(59,191,191,.2);
+          border-radius:100px;padding:4px 10px;">
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="var(--tq)"><circle cx="4" cy="4" r="4"/></svg>
+          <span id="visit-count">0</span> visitas
+        </span>
+      </div>
     </div>
   </div>
 </section>
@@ -1185,17 +1318,23 @@ details[open] .faq-arrow{transform:rotate(45deg);}
     <button class="bio-chip" onclick="bioAsk(5)">¿Cómo se calcula?</button>
     <button class="bio-chip" onclick="bioAsk(6)">¿Cuándo inicia el curso?</button>
     <button class="bio-chip" onclick="bioAsk(7)">¿Cuánto cuesta?</button>
-    <button class="bio-chip" onclick="bioAsk(8)">¿Sin experiencia espiritual?</button>
-    <button class="bio-chip" onclick="bioAsk(9)">¿Quedan grabaciones?</button>
-    <button class="bio-chip" onclick="bioAsk(10)">¿Sirve para decisiones?</button>
-    <button class="bio-chip" onclick="bioAsk(11)">¿Vínculos kármicos?</button>
+    <button class="bio-chip" onclick="bioAsk(8)">¿Quedan grabaciones?</button>
+    <button class="bio-chip" onclick="bioAsk(9)">¿Sirve para decisiones?</button>
+    <button class="bio-chip" onclick="bioAsk(10)">¿Vínculos kármicos?</button>
   </div>
   <a href="https://wa.me/56975685803" id="bio-wsp" target="_blank" rel="noopener">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
     Quiero hablar con Titi
   </a>
 </div>
-<button id="bio-btn" onclick="toggleChat()" aria-label="Asistente Bio">✦</button>
+<button id="bio-btn" onclick="toggleChat()" aria-label="Asistente Bio">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    <circle cx="9" cy="10" r=".8" fill="currentColor" stroke="none"/>
+    <circle cx="12" cy="10" r=".8" fill="currentColor" stroke="none"/>
+    <circle cx="15" cy="10" r=".8" fill="currentColor" stroke="none"/>
+  </svg>
+</button>
 
 <script>
 /* ── INJECT IMAGES ── */
@@ -1227,17 +1366,96 @@ setTimeout(() => {
   }
 }, 200);
 
+/* ── MOBILE NAV ── */
+function toggleMobileNav() {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+function goMobile(id) {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobile-nav').classList.remove('open');
+  go(id);
+}
+
+/* ── NAV ACTIVO ── */
+function setActiveNav(id) {
+  document.querySelectorAll('.site-nav a, #mobile-nav a').forEach(a => {
+    const fn = a.getAttribute('onclick') || '';
+    a.classList.toggle('active', fn.includes("'"+id+"'"));
+  });
+}
+
+const isMobileLayout = () => getComputedStyle(sc).position !== 'fixed';
 document.querySelectorAll('.ch, .cf').forEach(c => {
+  const root = isMobileLayout() ? null : sc;
   new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add('vis');
+        setActiveNav(e.target.id);
         document.querySelectorAll('.dot').forEach(d =>
           d.classList.toggle('on', d.dataset.id === e.target.id)
         );
       }
     });
-  }, { root: sc, threshold: 0.15 }).observe(c);
+  }, { root, threshold: 0.15 }).observe(c);
+});
+
+/* ── FAQ SMOOTH EXPAND ── */
+document.querySelectorAll('.faq-item').forEach(det => {
+  const ans = det.querySelector('.faq-a');
+  if (!ans) return;
+  det.addEventListener('click', e => {
+    if (!e.target.closest('summary')) return;
+    e.preventDefault();
+    if (det.open) {
+      ans.style.maxHeight = ans.scrollHeight + 'px';
+      ans.style.opacity = '1';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        ans.style.maxHeight = '0';
+        ans.style.opacity = '0';
+      }));
+      setTimeout(() => det.removeAttribute('open'), 340);
+    } else {
+      det.setAttribute('open', '');
+      ans.style.maxHeight = '0';
+      ans.style.opacity = '0';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+        ans.style.opacity = '1';
+      }));
+    }
+  });
+});
+
+/* ── FAQ BLOCK ACCORDION ── */
+document.querySelectorAll('details.faq-block').forEach(block => {
+  const body = block.querySelector('.faq-block-body');
+  if (!body) return;
+  // init closed state
+  body.style.maxHeight = '0';
+  body.style.opacity = '0';
+  block.addEventListener('click', e => {
+    if (!e.target.closest('.faq-block-summary')) return;
+    e.preventDefault();
+    if (block.open) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      body.style.opacity = '1';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        body.style.maxHeight = '0';
+        body.style.opacity = '0';
+      }));
+      setTimeout(() => block.removeAttribute('open'), 340);
+    } else {
+      block.setAttribute('open', '');
+      body.style.maxHeight = '0';
+      body.style.opacity = '0';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        body.style.opacity = '1';
+      }));
+    }
+  });
 });
 
 function go(id) {
@@ -1511,7 +1729,6 @@ const BOT_QA = [
   {q:'¿Cómo se calcula?', a:'A partir de tu fecha de nacimiento se derivan 16 pilares: Personalidad Profunda (PP), Nudo Emocional (NE), CIS, CES, PI, Máscara, BE, NR y más.'},
   {q:'¿Cuándo inicia el curso?', a:'El 6 de mayo de 2026. Son 5 clases los miércoles de 20:00 a 22:30 hrs Chile, en vivo por Zoom.'},
   {q:'¿Cuánto cuesta?', a:'$198.000 CLP · $220 USD. Puedes pagar en hasta 6 cuotas con Mercado Pago, por transferencia BCI o PayPal.'},
-  {q:'¿Sin experiencia espiritual?', a:'Totalmente. El método está pensado para acompañarte desde la emoción, no desde la teoría. Cualquier persona puede aprender.'},
   {q:'¿Quedan grabaciones?', a:'Sí. Todas las clases quedan grabadas para que puedas revisarlas a tu ritmo.'},
   {q:'¿Sirve para decisiones?', a:'Sí. Te enseña a decidir desde tu vibración y no desde el miedo — reconociendo cuándo repites un patrón heredado o cuándo una oportunidad está realmente alineada contigo.'},
   {q:'¿Vínculos kármicos?', a:'Sí. En la Bionumerología Base 22 incluso se puede detectar por qué ciertas relaciones parecen inevitables o profundamente kármicas.'}
@@ -1520,6 +1737,7 @@ let chatOpen = false;
 function toggleChat() {
   chatOpen = !chatOpen;
   document.getElementById('bio-chat').classList.toggle('open', chatOpen);
+  document.getElementById('bio-btn').classList.toggle('open', chatOpen);
 }
 function bioAsk(i) {
   const msgs = document.getElementById('bio-messages');
@@ -1537,6 +1755,34 @@ function bioAsk(i) {
   }, 380);
   msgs.scrollTop = msgs.scrollHeight;
 }
+
+
+/* ── CONTADOR DE VISITAS ── */
+(function(){
+  const badge = document.getElementById('visit-badge');
+  const countEl = document.getElementById('visit-count');
+  if (!badge || !countEl) return;
+
+  // Incrementar y leer localStorage
+  const KEY = 'sb_visits';
+  const local = (parseInt(localStorage.getItem(KEY) || '0') || 0) + 1;
+  localStorage.setItem(KEY, local);
+
+  // Mostrar siempre con el valor local como base
+  countEl.textContent = local.toLocaleString('es-CL');
+  badge.style.display = 'inline-flex';
+
+  // Intentar actualizar con contador real (servidor)
+  fetch('https://api.counterapi.dev/v1/salmibio-bio22/visits/up')
+    .then(r => r.ok ? r.json() : null)
+    .then(d => {
+      const serverCount = d && (d.count || d.value);
+      if (serverCount && serverCount > local) {
+        countEl.textContent = Number(serverCount).toLocaleString('es-CL');
+      }
+    })
+    .catch(() => {});
+})();
 
 /* ── 5. YERTHY PHOTO PARALLAX ── */
 sc.addEventListener('scroll', () => {
