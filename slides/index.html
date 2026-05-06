@@ -3826,6 +3826,13 @@ blockquote em { color: var(--tq); font-style: normal; font-weight: 700; }
   <button onclick="go(1)">Siguiente →</button>
 </div>
 
+<!-- Overlay "ir al slide" -->
+<div id="goto-overlay" style="display:none;position:fixed;bottom:68px;left:50%;transform:translateX(-50%);background:rgba(20,20,36,0.96);border:1.5px solid rgba(59,191,191,0.4);border-radius:14px;padding:14px 24px;z-index:9999;align-items:center;gap:14px;box-shadow:0 8px 32px rgba(0,0,0,0.4);">
+  <span style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.5);">Ir al slide</span>
+  <input id="goto-input" type="number" min="1" style="width:64px;font-size:22px;font-weight:900;font-family:'Playfair Display',serif;background:transparent;border:none;border-bottom:2px solid var(--tq);color:#fff;text-align:center;outline:none;padding:2px 0;">
+  <span id="goto-total" style="font-size:12px;color:rgba(255,255,255,0.4);"></span>
+</div>
+
 <script>
 // Precarga todas las imágenes al inicio para evitar saltos al navegar
 (function preloadImages() {
@@ -3897,37 +3904,47 @@ function goto(n) {
 }
 function go(dir) { goto(cur + dir); }
 
-// Ir a slide: clic en el contador lo convierte en input editable
+// Overlay "ir al slide"
+const overlay = document.getElementById('goto-overlay');
+const gotoInput = document.getElementById('goto-input');
+const gotoTotal = document.getElementById('goto-total');
+
 function openGoTo() {
-  if (counterEl.querySelector('input')) return;
-  const input = document.createElement('input');
-  input.type = 'number';
-  input.min = 1;
-  input.max = total;
-  input.value = cur + 1;
-  input.style.cssText = 'width:44px;font-size:13px;font-weight:700;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.5);border-radius:6px;color:#fff;text-align:center;padding:2px 4px;outline:none;';
-  counterEl.textContent = '';
-  counterEl.appendChild(input);
-  input.select();
-  function confirm() {
-    const n = parseInt(input.value) - 1;
-    if (n >= 0 && n < total) goto(n); else updateNav();
-  }
-  input.addEventListener('keydown', e => {
-    if (e.key === 'Enter') { confirm(); e.stopPropagation(); }
-    if (e.key === 'Escape') { updateNav(); e.stopPropagation(); }
-    e.stopPropagation();
-  });
-  input.addEventListener('blur', confirm);
+  gotoTotal.textContent = '/ ' + total;
+  gotoInput.max = total;
+  gotoInput.value = cur + 1;
+  overlay.style.display = 'flex';
+  gotoInput.select();
+  gotoInput.focus();
 }
 
+function closeGoTo(navigate) {
+  overlay.style.display = 'none';
+  if (navigate) {
+    const n = parseInt(gotoInput.value) - 1;
+    if (n >= 0 && n < total) goto(n);
+  }
+}
+
+gotoInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') { closeGoTo(true);  e.stopPropagation(); }
+  if (e.key === 'Escape') { closeGoTo(false); e.stopPropagation(); }
+  e.stopPropagation();
+});
+
+// Clic fuera del overlay lo cierra
+document.addEventListener('click', e => {
+  if (overlay.style.display === 'flex' && !overlay.contains(e.target) && e.target !== counterEl)
+    closeGoTo(false);
+});
+
 counterEl.addEventListener('click', openGoTo);
-counterEl.title = 'Clic para ir a un slide';
+counterEl.title = 'Clic para ir directo a un slide';
 
 document.addEventListener('keydown', e => {
   if (['ArrowRight','ArrowDown',' '].includes(e.key)) go(1);
   if (['ArrowLeft','ArrowUp'].includes(e.key)) go(-1);
-  if (e.key === 'g' || e.key === 'G') openGoTo();
+  if ((e.key === 'g' || e.key === 'G') && overlay.style.display !== 'flex') openGoTo();
 });
 </script>
 
