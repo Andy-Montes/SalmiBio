@@ -693,6 +693,13 @@ blockquote em { color: var(--tq); font-style: normal; font-weight: 700; }
   min-width: 44px;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: color .2s, background .2s;
+}
+.nav .counter:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.1);
 }
 .progress-bar {
   width: 160px;
@@ -3890,9 +3897,37 @@ function goto(n) {
 }
 function go(dir) { goto(cur + dir); }
 
+// Ir a slide: clic en el contador lo convierte en input editable
+function openGoTo() {
+  if (counterEl.querySelector('input')) return;
+  const input = document.createElement('input');
+  input.type = 'number';
+  input.min = 1;
+  input.max = total;
+  input.value = cur + 1;
+  input.style.cssText = 'width:44px;font-size:13px;font-weight:700;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.5);border-radius:6px;color:#fff;text-align:center;padding:2px 4px;outline:none;';
+  counterEl.textContent = '';
+  counterEl.appendChild(input);
+  input.select();
+  function confirm() {
+    const n = parseInt(input.value) - 1;
+    if (n >= 0 && n < total) goto(n); else updateNav();
+  }
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { confirm(); e.stopPropagation(); }
+    if (e.key === 'Escape') { updateNav(); e.stopPropagation(); }
+    e.stopPropagation();
+  });
+  input.addEventListener('blur', confirm);
+}
+
+counterEl.addEventListener('click', openGoTo);
+counterEl.title = 'Clic para ir a un slide';
+
 document.addEventListener('keydown', e => {
   if (['ArrowRight','ArrowDown',' '].includes(e.key)) go(1);
   if (['ArrowLeft','ArrowUp'].includes(e.key)) go(-1);
+  if (e.key === 'g' || e.key === 'G') openGoTo();
 });
 </script>
 
